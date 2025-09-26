@@ -6,11 +6,11 @@ public class PlayerInteraction : MonoBehaviour
     public InputActionAsset actions;
     public PlayerInput playerInput;
 
-    public static InputAction Move;
-    public static InputAction Look;
-    public static InputAction Jump;
-    public static InputAction Sprint;
+    public static InputAction LeftStick;
+    public static InputAction RightStick;
     public static InputAction Pause;
+    // public static InputAction Jump;
+    // public static InputAction Sprint;
 
     void Start()
     {
@@ -20,10 +20,10 @@ public class PlayerInteraction : MonoBehaviour
 
     void Update()
     {
-        Move = playerInput.actions["Move"];
-        Look = playerInput.actions["Look"];
-        Jump = playerInput.actions["Jump"];
-        Sprint = playerInput.actions["Sprint"];
+        RightStick = playerInput.actions["Right Stick"];
+        LeftStick = playerInput.actions["Left Stick"];
         Pause = playerInput.actions["Pause"];
+        // Sprint = playerInput.actions["Sprint"];
+        // Pause = playerInput.actions["Pause"];
     }
 }

@@ -6,7 +6,7 @@
             "id": "c80a0453-dec0-4459-9bea-2360812d9048",
             "actions": [
                 {
-                    "name": "X Stick",
+                    "name": "Left Stick",
                     "type": "Value",
                     "id": "b0f5c628-a7a0-4fe8-b43a-002191da6a03",
                     "expectedControlType": "Vector2",
@@ -15,7 +15,7 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Y Stick",
+                    "name": "Right Stick",
                     "type": "Value",
                     "id": "9f48e76b-5992-4853-9865-96aa485ae92d",
                     "expectedControlType": "Vector2",
@@ -59,7 +59,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";Gamepad",
-                    "action": "X Stick",
+                    "action": "Left Stick",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -70,7 +70,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "X Stick",
+                    "action": "Left Stick",
                     "isComposite": true,
                     "isPartOfComposite": false
                 },
@@ -81,7 +81,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
-                    "action": "X Stick",
+                    "action": "Left Stick",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -92,7 +92,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
-                    "action": "X Stick",
+                    "action": "Left Stick",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -103,7 +103,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
-                    "action": "X Stick",
+                    "action": "Left Stick",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -114,7 +114,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
-                    "action": "X Stick",
+                    "action": "Left Stick",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -125,7 +125,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Y Stick",
+                    "action": "Right Stick",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -136,7 +136,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Y Stick",
+                    "action": "Right Stick",
                     "isComposite": true,
                     "isPartOfComposite": false
                 },
@@ -147,7 +147,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Y Stick",
+                    "action": "Right Stick",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -158,7 +158,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Y Stick",
+                    "action": "Right Stick",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -169,7 +169,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Y Stick",
+                    "action": "Right Stick",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -180,7 +180,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Y Stick",
+                    "action": "Right Stick",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
