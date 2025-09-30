@@ -5,6 +5,9 @@ using UnityEngine;
 public class DroneController : MonoBehaviour
 {
     public TMP_Text heightText;
+    public TMP_Text speedText;
+    public TMP_Text verticalSpeedText;
+    public TMP_Text modeText;
     public enum Mode
     {
         Normal,
@@ -18,15 +21,16 @@ public class DroneController : MonoBehaviour
 
     Vector2 leftStick;
     Vector2 rightStick;
+    float modeAxis;
 
-    float[] maxYawRate = { 120f, 240f }; // Degrees/s
-    float[] maxRollPitchRate = { 5f, 10f };
-    float[] turnAcceleration = { 5f, 10f };
+    float[] maxYawRate = { 100f, 200f, 250f }; // Degrees/s
+    float[] maxRollPitchRate = { 5f, 10f, 240f };
+    float[] turnAcceleration = { 5f, 10f, 200f };
     float[] maxTiltAngle = { 5f, 15f }; // Normal & Sport max roll
 
-    float[] acceleration = { 40f, 80f };
-    float[] maxHorizontalMoveSpeed = { 8f, 16f };
-    float[] maxVerticalMoveSpeed = { 6f, 9f };
+    float[] acceleration = { 40f, 80f, 100f };
+    float[] maxHorizontalMoveSpeed = { 9f, 17f };
+    float[] maxVerticalMoveSpeed = { 6f, 9f, 27f };
 
     float minHeight = 1f; // minimum height above ground
 
@@ -34,16 +38,45 @@ public class DroneController : MonoBehaviour
     {
         rigidBody = GetComponent<Rigidbody>();
     }
+    bool modePushed = false;
     void Update()
     {
         // Initialize Inputs
-        leftStick = PlayerInteraction.LeftStick.ReadValue<Vector2>();
-        rightStick = PlayerInteraction.RightStick.ReadValue<Vector2>();
+        Vector2 leftStickRaw = PlayerInteraction.LeftStick.ReadValue<Vector2>();
+        Vector2 rightStickRaw = PlayerInteraction.RightStick.ReadValue<Vector2>();
+        leftStick = leftStickRaw; // --------------------------- IMPLEMENT DEADZONES ------------------------------------------ //
+        rightStick = rightStickRaw;
+        modeAxis = PlayerInteraction.ModeToggle.ReadValue<float>();
+
+        // Mode toggle
+        switch (modeAxis)
+        {
+            case -1f:
+                if (modePushed != true)
+                {
+                    mode = (Mode)Mathf.Clamp((int)(mode - 1), 0, 2);
+                    modePushed = true;
+                }
+                break;
+            case 1f:
+                if (modePushed != true)
+                {
+                    mode = (Mode)Mathf.Clamp((int)(mode + 1), 0, 2);
+                    modePushed = true;
+                }
+                break;
+            default: modePushed = false;
+                break;
+        }
+        char[] modeCharacters = { 'N', 'S', 'M' };
+        modeText.text = modeCharacters[(int)mode].ToString();
 
         // Stabilize camera
         Vector3 mainCameraTransform = Camera.main.transform.localEulerAngles;
-        Camera.main.transform.localEulerAngles = new Vector3(-transform.eulerAngles.x, mainCameraTransform.y, mainCameraTransform.z);
+        Camera.main.transform.localEulerAngles = (mode == Mode.Manual)? Vector3.zero : new Vector3(-transform.eulerAngles.x, mainCameraTransform.y, mainCameraTransform.z);
     }
+    float? speedLastFrame;
+    float? verticalSpeedLastFrame;
     private void FixedUpdate()
     {
         // LeftStick X == Yaw
@@ -82,19 +115,39 @@ public class DroneController : MonoBehaviour
         }
         else if (mode == Mode.Manual)
         {
-            // Apply gravity again
-            rigidBody.useGravity = false;
+            rigidBody.useGravity = true;
 
-            // Smooth acceleration toward target angular velocity
-            rigidBody.angularVelocity = Vector3.MoveTowards(rigidBody.angularVelocity, new Vector3(-rightStick.y * maxRollPitchRate[0], leftStick.x * maxYawRate[0], -rightStick.x * maxRollPitchRate[0]), turnAcceleration[0] * Time.fixedDeltaTime);
+            int modeId = 2; // Manual mode
+
+            // Smoothly move toward target angular velocity in world space
+            rigidBody.angularVelocity = transform.TransformDirection(Vector3.MoveTowards(
+                transform.InverseTransformDirection(rigidBody.angularVelocity),
+                new Vector3(rightStick.y * maxRollPitchRate[modeId], leftStick.x * maxYawRate[modeId], -rightStick.x * maxRollPitchRate[modeId]) * Mathf.Deg2Rad,
+                turnAcceleration[modeId] * Mathf.Deg2Rad * Time.fixedDeltaTime
+            ));
+
+            // Thrust along local up axis
+            float velocityDifference = leftStick.y * maxVerticalMoveSpeed[modeId] - transform.InverseTransformDirection(rigidBody.linearVelocity).y;
+
+            rigidBody.AddForce(transform.up * (rigidBody.mass * Physics.gravity.magnitude + Mathf.Clamp(velocityDifference * rigidBody.mass, -acceleration[modeId], acceleration[modeId])), ForceMode.Force);
         }
 
-        if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, 1000f))
+        if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, 999f))
         {
             heightText.text = $"H: {hit.distance:0.0}m";
             // If too close to the ground, zero out downward velocity
             if (hit.distance <= minHeight && rigidBody.linearVelocity.y < 0) rigidBody.linearVelocity = new Vector3(rigidBody.linearVelocity.x, 0f, rigidBody.linearVelocity.z);
         }
         else heightText.text = "H: XXXXm";
+
+        // Calculate absolute speed
+        if (speedLastFrame == null) speedLastFrame = 0f;
+        speedText.text = $"{(Mathf.Sqrt(Mathf.Pow(rigidBody.linearVelocity.z, 2) + Mathf.Pow(rigidBody.linearVelocity.x, 2)) - speedLastFrame / 50) * 3.6:0.0}kph";
+        speedLastFrame = Mathf.Sqrt(Mathf.Pow(rigidBody.linearVelocity.z, 2) + Mathf.Pow(rigidBody.linearVelocity.x, 2));
+
+        // Calculate vertical speed
+        if (verticalSpeedLastFrame == null) verticalSpeedLastFrame = 0f;
+        verticalSpeedText.text = $"{(rigidBody.linearVelocity.y - verticalSpeedLastFrame / 50) * 3.6:0.0}kph";
+        speedLastFrame = rigidBody.linearVelocity.y;
     }
 }

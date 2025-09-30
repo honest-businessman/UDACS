@@ -9,7 +9,7 @@ public class PlayerInteraction : MonoBehaviour
     public static InputAction LeftStick;
     public static InputAction RightStick;
     public static InputAction Pause;
-    // public static InputAction Jump;
+    public static InputAction ModeToggle;
     // public static InputAction Sprint;
 
     void Start()
@@ -23,7 +23,7 @@ public class PlayerInteraction : MonoBehaviour
         RightStick = playerInput.actions["Right Stick"];
         LeftStick = playerInput.actions["Left Stick"];
         Pause = playerInput.actions["Pause"];
-        // Sprint = playerInput.actions["Sprint"];
+        ModeToggle = playerInput.actions["Mode Toggle"];
         // Pause = playerInput.actions["Pause"];
     }
 }
