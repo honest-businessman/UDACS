@@ -1,0 +1,21 @@
+A: 
+B: 
+Y: 
+X: 
+
+Down: Camera Pitch Up
+Right: Mode Forward //
+Up: Camera Pitch Down
+Left: Mode Back //
+
+L Axis: Up/Down/Yaw //
+L1: RTH/Flight Pause //
+L2: Drop Payload // LMB
+L3: 
+R Axis: Pitch/Roll //
+R1: Record/Photo //
+R2: Start/Stop // Alt
+R3: 
+
+Left Menu: 
+Right Menu: Pause Game //

@@ -10,7 +10,11 @@ public class PlayerInteraction : MonoBehaviour
     public static InputAction RightStick;
     public static InputAction Pause;
     public static InputAction ModeToggle;
-    // public static InputAction Sprint;
+    public static InputAction FlightPauseRTH;
+    public static InputAction RecordPhoto;
+    public static InputAction StartStop;
+    public static InputAction CameraAdjust;
+    public static InputAction Deploy;
 
     void Start()
     {
@@ -24,6 +28,8 @@ public class PlayerInteraction : MonoBehaviour
         LeftStick = playerInput.actions["Left Stick"];
         Pause = playerInput.actions["Pause"];
         ModeToggle = playerInput.actions["Mode Toggle"];
-        // Pause = playerInput.actions["Pause"];
+        FlightPauseRTH = playerInput.actions["RTH/FlightPause"];
+        RecordPhoto = playerInput.actions["Record/Photo"];
+        StartStop = playerInput.actions["Start/Stop"];
     }
 }

@@ -24,13 +24,13 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Return Home",
-                    "type": "Button",
+                    "name": "RTH/FlightPause",
+                    "type": "Value",
                     "id": "1f7a21a7-8bed-4b50-b226-9b68f6998d51",
-                    "expectedControlType": "",
+                    "expectedControlType": "Axis",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 },
                 {
                     "name": "Pause",
@@ -42,7 +42,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Record",
+                    "name": "Record/Photo",
                     "type": "Button",
                     "id": "45061b24-ecd9-4089-9e76-314ccdabc938",
                     "expectedControlType": "",
@@ -58,6 +58,33 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "Start/Stop",
+                    "type": "Button",
+                    "id": "608a4b40-26f7-4b97-a864-82a7f969719b",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "CameraAdjust",
+                    "type": "Value",
+                    "id": "d3da12ec-eeee-4825-801e-0889fbd1e5a5",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Deploy",
+                    "type": "Button",
+                    "id": "5f1f49f1-5ab4-4ef1-a911-3369347f7abc",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -128,12 +155,45 @@
                     "isPartOfComposite": true
                 },
                 {
+                    "name": "DJI",
+                    "id": "9b97d27e-f87d-4000-b885-b52b7fa8ee28",
+                    "path": "2DVector(mode=2)",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Left Stick",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "up",
+                    "id": "a4c12d32-3325-4e6f-9139-a4e32d94870a",
+                    "path": "<HID::DJI HID Interface>/z",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";DJI Remote",
+                    "action": "Left Stick",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "daf5b94a-16f4-4b53-afa5-1ded982c4b6e",
+                    "path": "<HID::DJI HID Interface>/rx",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";DJI Remote",
+                    "action": "Left Stick",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
                     "name": "",
                     "id": "edbc6028-9c55-41d3-b1e4-e243ba0b3d46",
                     "path": "<Gamepad>/rightStick",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": ";Gamepad",
                     "action": "Right Stick",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -155,7 +215,7 @@
                     "path": "<Keyboard>/upArrow",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": ";Keyboard&Mouse",
                     "action": "Right Stick",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -166,7 +226,7 @@
                     "path": "<Keyboard>/downArrow",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": ";Keyboard&Mouse",
                     "action": "Right Stick",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -177,7 +237,7 @@
                     "path": "<Keyboard>/leftArrow",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": ";Keyboard&Mouse",
                     "action": "Right Stick",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -188,29 +248,150 @@
                     "path": "<Keyboard>/rightArrow",
                     "interactions": "",
                     "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Right Stick",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "2D Vector",
+                    "id": "692661a8-979b-46a4-a34e-d3392df669b7",
+                    "path": "2DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Right Stick",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "up",
+                    "id": "608912d2-082f-41f9-ab3b-82ac33e12b40",
+                    "path": "<HID::DJI HID Interface>/stick/up",
+                    "interactions": "",
+                    "processors": "",
                     "groups": "",
                     "action": "Right Stick",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "",
-                    "id": "f85386b7-1200-4b89-9e33-c55de49ba942",
-                    "path": "<Keyboard>/f",
+                    "name": "down",
+                    "id": "9850d453-a2e6-4245-8f27-3383ad20564f",
+                    "path": "<HID::DJI HID Interface>/stick/down",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Return Home",
+                    "action": "Right Stick",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "left",
+                    "id": "c11068f2-715b-4988-bf31-85c0553b4f39",
+                    "path": "<HID::DJI HID Interface>/stick/left",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Right Stick",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "9f6fa2fb-b316-4d47-96c4-a2a9b82502e9",
+                    "path": "<HID::DJI HID Interface>/stick/right",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Right Stick",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "Keybinds",
+                    "id": "4fa8a62d-fa75-4b11-b02b-18b113c5b141",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RTH/FlightPause",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "662e4a3e-5a0d-4b16-ba40-3a6a0a107eea",
+                    "path": "<Keyboard>/f",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "RTH/FlightPause",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "7c4b95f2-9ee7-44cb-a7ac-ea16b3b9885b",
+                    "path": "<Keyboard>/p",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "RTH/FlightPause",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "f9cea54e-c015-4f26-89eb-53e84197f579",
+                    "path": "<Gamepad>/leftShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
+                    "action": "RTH/FlightPause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5f0cee7a-d0c9-4f61-ba99-5ed11f2b3d02",
+                    "path": "<HID::DJI HID Interface>/button3",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";DJI Remote",
+                    "action": "RTH/FlightPause",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
                     "id": "e0d807e1-6b05-42dc-bc3e-1289bb4580ca",
-                    "path": "<Keyboard>/x",
+                    "path": "<Keyboard>/escape",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "077f8ace-33ee-4de2-83fd-bcad4b0ff68a",
+                    "path": "*/{Menu}",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
+                    "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a5a918b6-e27b-4bb7-ad81-c00ce90a20b6",
+                    "path": "<HID::DJI HID Interface>/trigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";DJI Remote",
                     "action": "Pause",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -218,16 +399,38 @@
                 {
                     "name": "",
                     "id": "0413f090-a733-40d1-8e63-265bbf409b97",
-                    "path": "",
+                    "path": "<Gamepad>/rightShoulder",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
-                    "action": "Record",
+                    "groups": ";Gamepad",
+                    "action": "Record/Photo",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "1D Axis",
+                    "name": "",
+                    "id": "e1682579-3c0f-4280-8325-9490ade6de65",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Record/Photo",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1baf7d5e-5b01-4105-9e26-0966dc51cdef",
+                    "path": "<HID::DJI HID Interface>/button4",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";DJI Remote",
+                    "action": "Record/Photo",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "Gamepad",
                     "id": "25a215ea-993b-42d2-8f66-469f0bcd3f0c",
                     "path": "1DAxis",
                     "interactions": "",
@@ -260,7 +463,7 @@
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "1D Axis",
+                    "name": "Keyboard",
                     "id": "587de46a-ba71-4acf-b280-2e7c9a0e577a",
                     "path": "1DAxis",
                     "interactions": "",
@@ -291,6 +494,127 @@
                     "action": "Mode Toggle",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "DJI",
+                    "id": "a1ab1fbf-7ae1-48e0-8694-fa797ca38bbb",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Mode Toggle",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "434babcb-2027-47ed-a46a-894ed7b82315",
+                    "path": "<HID::DJI HID Interface>/button8",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";DJI Remote",
+                    "action": "Mode Toggle",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "1a362390-0d57-4fdc-a883-9f0d10dd74d3",
+                    "path": "<HID::DJI HID Interface>/button7",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";DJI Remote",
+                    "action": "Mode Toggle",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "ca3a0344-dcb9-4e44-bf7b-f58c00e53ed8",
+                    "path": "<Gamepad>/rightTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
+                    "action": "Start/Stop",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ff5a43ff-c6f9-42fd-8de8-f2483a0948c8",
+                    "path": "<Keyboard>/alt",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Start/Stop",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3e909e9d-7703-4415-9440-44dc1df9f985",
+                    "path": "<HID::DJI HID Interface>/button2",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";DJI Remote",
+                    "action": "Start/Stop",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "1D Axis",
+                    "id": "6c793798-9bab-4dbf-b69b-0e9304e7a72a",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "CameraAdjust",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "c3be51f3-7a2e-4c90-ba80-ff2e07a801fa",
+                    "path": "<Gamepad>/dpad/up",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
+                    "action": "CameraAdjust",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "4407efad-95f2-48a1-9cb5-7b56a36e7627",
+                    "path": "<Gamepad>/leftStick/down",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
+                    "action": "CameraAdjust",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "b11f1b9a-62d7-4bfa-9753-d7fdc589e725",
+                    "path": "<Gamepad>/leftTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
+                    "action": "Deploy",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d7afca39-6b74-44b4-9bd8-56e0aa2a513e",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Deploy",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
@@ -1341,6 +1665,17 @@
             "devices": [
                 {
                     "devicePath": "<XRController>",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        },
+        {
+            "name": "DJI Remote",
+            "bindingGroup": "DJI Remote",
+            "devices": [
+                {
+                    "devicePath": "<HID>",
                     "isOptional": false,
                     "isOR": false
                 }

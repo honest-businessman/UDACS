@@ -2,6 +2,9 @@ using TMPro;
 using UnityEngine;
 
 [RequireComponent (typeof(Rigidbody))]
+
+
+///////////////////////////////////////// HOLDING YAW CAUSES WEIRD INTERACTION WHEN FLYING FROM MANUAL TO SPORT
 public class DroneController : MonoBehaviour
 {
     public TMP_Text heightText;
