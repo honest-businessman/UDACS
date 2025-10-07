@@ -94,7 +94,7 @@
                     "path": "<Gamepad>/leftStick",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Gamepad",
+                    "groups": ";Gamepad;Joystick",
                     "action": "Left Stick",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -193,7 +193,7 @@
                     "path": "<Gamepad>/rightStick",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Gamepad",
+                    "groups": ";Gamepad;Joystick",
                     "action": "Right Stick",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -347,7 +347,7 @@
                     "path": "<Gamepad>/leftShoulder",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Gamepad",
+                    "groups": ";Gamepad;Joystick",
                     "action": "RTH FlightPause",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -380,7 +380,7 @@
                     "path": "*/{Menu}",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Gamepad",
+                    "groups": ";Gamepad;Joystick",
                     "action": "Pause",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -402,7 +402,7 @@
                     "path": "<Gamepad>/rightShoulder",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Gamepad",
+                    "groups": ";Gamepad;Joystick",
                     "action": "Record Photo",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -446,7 +446,7 @@
                     "path": "<Gamepad>/dpad/left",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": ";Joystick;Gamepad",
                     "action": "Mode Toggle",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -457,7 +457,7 @@
                     "path": "<Gamepad>/dpad/right",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": ";Joystick;Gamepad",
                     "action": "Mode Toggle",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -534,7 +534,7 @@
                     "path": "<Gamepad>/rightTrigger",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Gamepad",
+                    "groups": ";Gamepad;Joystick",
                     "action": "Start Stop",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -578,7 +578,7 @@
                     "path": "<Gamepad>/dpad/up",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Gamepad",
+                    "groups": ";Gamepad;Joystick",
                     "action": "CameraAdjust",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -589,7 +589,7 @@
                     "path": "<Gamepad>/dpad/down",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Gamepad",
+                    "groups": ";Gamepad;Joystick",
                     "action": "CameraAdjust",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -600,7 +600,7 @@
                     "path": "<Gamepad>/leftTrigger",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Gamepad",
+                    "groups": ";Gamepad;Joystick",
                     "action": "Deploy",
                     "isComposite": false,
                     "isPartOfComposite": false

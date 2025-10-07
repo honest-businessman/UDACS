@@ -127,7 +127,7 @@ public class DroneController : MonoBehaviour
 
         // Stabilize camera
         Vector3 mainCameraTransform = Camera.main.transform.localEulerAngles;
-        Camera.main.transform.localEulerAngles = (mode == Mode.Manual) ? new Vector3(mainCameraTransform.x + Mathf.DeltaAngle(mainCameraTransform.x, cameraOffset = Mathf.Clamp(cameraOffset + PlayerInteraction.CameraAdjust.ReadValue<float>() / 4f, -90, 90)), mainCameraTransform.y, mainCameraTransform.z) : (Mathf.Abs(Mathf.DeltaAngle(mainCameraTransform.x, -transform.eulerAngles.x)) < 1f) ? new Vector3(-transform.eulerAngles.x, mainCameraTransform.y, mainCameraTransform.z) : new Vector3(mainCameraTransform.x + Mathf.DeltaAngle(mainCameraTransform.x, -transform.eulerAngles.x) * Time.deltaTime * 20f, mainCameraTransform.y, mainCameraTransform.z);
+        Camera.main.transform.localEulerAngles = (mode == Mode.Manual) ? new Vector3(mainCameraTransform.x + Mathf.DeltaAngle(mainCameraTransform.x, cameraOffset = Mathf.Clamp(cameraOffset + PlayerInteraction.CameraAdjust.ReadValue<float>() / 4f, -90, 90)), mainCameraTransform.y, mainCameraTransform.z) : (Mathf.Abs(Mathf.DeltaAngle(mainCameraTransform.x, -transform.eulerAngles.x)) < 2f) ? new Vector3(-transform.eulerAngles.x, mainCameraTransform.y, mainCameraTransform.z) : new Vector3(mainCameraTransform.x + Mathf.DeltaAngle(mainCameraTransform.x, -transform.eulerAngles.x) * Time.deltaTime * 20f, mainCameraTransform.y, mainCameraTransform.z);
     }
 
     Quaternion? levelRotation = null;
