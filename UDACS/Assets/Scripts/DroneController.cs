@@ -2,21 +2,21 @@ using TMPro;
 using UnityEngine;
 
 [RequireComponent (typeof(Rigidbody))]
-
-
-///////////////////////////////////////// HOLDING YAW CAUSES WEIRD INTERACTION WHEN FLYING FROM MANUAL TO SPORT
 public class DroneController : MonoBehaviour
 {
     public TMP_Text heightText;
     public TMP_Text speedText;
     public TMP_Text verticalSpeedText;
     public TMP_Text modeText;
+
+    public float deadzone = 0.1f;
     public enum Mode
     {
         Normal,
         Sport,
         Manual
     }
+
     [SerializeField]
     Mode mode = Mode.Normal;
 
@@ -33,7 +33,7 @@ public class DroneController : MonoBehaviour
 
     float[] acceleration = { 40f, 80f, 100f };
     float[] maxHorizontalMoveSpeed = { 9f, 17f };
-    float[] maxVerticalMoveSpeed = { 6f, 9f, 27f };
+    float[] maxVerticalMoveSpeed = { 6f, 9f, 55f };
 
     float minHeight = 1f; // minimum height above ground
 
@@ -44,11 +44,22 @@ public class DroneController : MonoBehaviour
     bool modePushed = false;
     void Update()
     {
+        if (PlayerInteraction.LeftStick == null) return;
         // Initialize Inputs
         Vector2 leftStickRaw = PlayerInteraction.LeftStick.ReadValue<Vector2>();
         Vector2 rightStickRaw = PlayerInteraction.RightStick.ReadValue<Vector2>();
-        leftStick = leftStickRaw; // --------------------------- IMPLEMENT DEADZONES ------------------------------------------ //
-        rightStick = rightStickRaw;
+        float deadzone = 0.1f;
+
+        // Apply deadzones
+        leftStick = new(
+            (Mathf.Abs(leftStickRaw.x) < deadzone) ? 0f : Mathf.Sign(leftStickRaw.x) * ((Mathf.Abs(leftStickRaw.x) - deadzone) / (1f - deadzone)),
+            (Mathf.Abs(leftStickRaw.y) < deadzone) ? 0f : Mathf.Sign(leftStickRaw.y) * ((Mathf.Abs(leftStickRaw.y) - deadzone) / (1f - deadzone))
+        );
+        rightStick = new(
+            (Mathf.Abs(rightStickRaw.x) < deadzone) ? 0f : Mathf.Sign(rightStickRaw.x) * ((Mathf.Abs(rightStickRaw.x) - deadzone) / (1f - deadzone)),
+            (Mathf.Abs(rightStickRaw.y) < deadzone) ? 0f : Mathf.Sign(rightStickRaw.y) * ((Mathf.Abs(rightStickRaw.y) - deadzone) / (1f - deadzone))
+        );
+
         modeAxis = PlayerInteraction.ModeToggle.ReadValue<float>();
 
         // Mode toggle
@@ -78,19 +89,41 @@ public class DroneController : MonoBehaviour
         Vector3 mainCameraTransform = Camera.main.transform.localEulerAngles;
         Camera.main.transform.localEulerAngles = (mode == Mode.Manual)? Vector3.zero : new Vector3(-transform.eulerAngles.x, mainCameraTransform.y, mainCameraTransform.z);
     }
+    Quaternion? levelRotation = null;
+    float levellingProgress = 0f;
     float? speedLastFrame;
     float? verticalSpeedLastFrame;
+    bool wasManual;
     private void FixedUpdate()
     {
         // LeftStick X == Yaw
         // LeftStick Y == Collective
         // RightStick X == Roll
         // RightStick Y == Pitch
-        if (mode == Mode.Normal || mode == Mode.Sport)
-        {
-            // Prevent slow fall effect
-            rigidBody.useGravity = false;
 
+        // Prevent slow fall effect for non manual modes
+        rigidBody.useGravity = mode == Mode.Manual;
+
+        // Detect switch from manual mode and set values for transition
+        if (wasManual && mode != Mode.Manual)
+        {
+            rigidBody.angularVelocity = Vector3.zero;
+
+            levelRotation = Quaternion.Euler(0, rigidBody.rotation.eulerAngles.y, 0);
+            levellingProgress = 0f;
+            wasManual = false;
+        }
+
+        // Level the drone at a set speed
+        if (levelRotation.HasValue)
+        {
+            levellingProgress += Time.fixedDeltaTime / 3f;
+            rigidBody.MoveRotation(Quaternion.Slerp(rigidBody.rotation, levelRotation.Value, levellingProgress));
+
+            if (Quaternion.Angle(rigidBody.rotation, levelRotation.Value) < 0.1f) levelRotation = null;
+        }
+        else if (mode == Mode.Normal || mode == Mode.Sport)
+        {
             // Set params
             byte modeId = (byte)(mode == Mode.Normal ? 0 : 1);
 
@@ -118,7 +151,7 @@ public class DroneController : MonoBehaviour
         }
         else if (mode == Mode.Manual)
         {
-            rigidBody.useGravity = true;
+            wasManual = true;
 
             int modeId = 2; // Manual mode
 

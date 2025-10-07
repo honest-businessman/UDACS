@@ -28,8 +28,8 @@ public class PlayerInteraction : MonoBehaviour
         LeftStick = playerInput.actions["Left Stick"];
         Pause = playerInput.actions["Pause"];
         ModeToggle = playerInput.actions["Mode Toggle"];
-        FlightPauseRTH = playerInput.actions["RTH/FlightPause"];
-        RecordPhoto = playerInput.actions["Record/Photo"];
-        StartStop = playerInput.actions["Start/Stop"];
+        FlightPauseRTH = playerInput.actions["RTH FlightPause"];
+        RecordPhoto = playerInput.actions["Record Photo"];
+        StartStop = playerInput.actions["Start Stop"];
     }
 }

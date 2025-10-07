@@ -24,7 +24,7 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "RTH/FlightPause",
+                    "name": "RTH FlightPause",
                     "type": "Value",
                     "id": "1f7a21a7-8bed-4b50-b226-9b68f6998d51",
                     "expectedControlType": "Axis",
@@ -42,7 +42,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Record/Photo",
+                    "name": "Record Photo",
                     "type": "Button",
                     "id": "45061b24-ecd9-4089-9e76-314ccdabc938",
                     "expectedControlType": "",
@@ -60,7 +60,7 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Start/Stop",
+                    "name": "Start Stop",
                     "type": "Button",
                     "id": "608a4b40-26f7-4b97-a864-82a7f969719b",
                     "expectedControlType": "",
@@ -315,7 +315,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "RTH/FlightPause",
+                    "action": "RTH FlightPause",
                     "isComposite": true,
                     "isPartOfComposite": false
                 },
@@ -326,7 +326,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
-                    "action": "RTH/FlightPause",
+                    "action": "RTH FlightPause",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -337,7 +337,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
-                    "action": "RTH/FlightPause",
+                    "action": "RTH FlightPause",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -348,7 +348,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";Gamepad",
-                    "action": "RTH/FlightPause",
+                    "action": "RTH FlightPause",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -359,7 +359,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";DJI Remote",
-                    "action": "RTH/FlightPause",
+                    "action": "RTH FlightPause",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -403,7 +403,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";Gamepad",
-                    "action": "Record/Photo",
+                    "action": "Record Photo",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -414,7 +414,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
-                    "action": "Record/Photo",
+                    "action": "Record Photo",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -425,7 +425,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";DJI Remote",
-                    "action": "Record/Photo",
+                    "action": "Record Photo",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -535,7 +535,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";Gamepad",
-                    "action": "Start/Stop",
+                    "action": "Start Stop",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -546,7 +546,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
-                    "action": "Start/Stop",
+                    "action": "Start Stop",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -557,7 +557,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";DJI Remote",
-                    "action": "Start/Stop",
+                    "action": "Start Stop",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

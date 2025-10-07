@@ -484,6 +484,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: HUDCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 5303397446086843155, guid: 7a8b683b30ef3f1408c3f58cfe8b9263, type: 3}
+      propertyPath: m_UiScaleMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5303397446086843155, guid: 7a8b683b30ef3f1408c3f58cfe8b9263, type: 3}
+      propertyPath: m_MatchWidthOrHeight
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7758259799928573285, guid: 7a8b683b30ef3f1408c3f58cfe8b9263, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -597,6 +605,10 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+    - target: {fileID: 6079788266366092498, guid: 01f4f583b9d48c64db6845c15d8ba65d, type: 3}
+      propertyPath: m_IsKinematic
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7065669588379045375, guid: 01f4f583b9d48c64db6845c15d8ba65d, type: 3}
       propertyPath: m_Name
       value: Drone
