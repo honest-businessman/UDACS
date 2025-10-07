@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 261314989620adf49938b236745cb0ff
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 18143
+  packageName: Destructible Wall Generator
+  packageVersion: 1.3
+  assetPath: Assets/DestructibleWallGenerator/Example/Materials/BrickBlue.mat
+  uploadId: 49685

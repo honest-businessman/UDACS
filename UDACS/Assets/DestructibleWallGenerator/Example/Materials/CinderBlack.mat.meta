@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: a2d27656c952c2d4aa2a1080399026b1
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 18143
+  packageName: Destructible Wall Generator
+  packageVersion: 1.3
+  assetPath: Assets/DestructibleWallGenerator/Example/Materials/CinderBlack.mat
+  uploadId: 49685

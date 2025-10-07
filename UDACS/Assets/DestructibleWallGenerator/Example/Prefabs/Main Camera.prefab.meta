@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: dd05232183c1bfc4ab66a9ac978b52da
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 18143
+  packageName: Destructible Wall Generator
+  packageVersion: 1.3
+  assetPath: Assets/DestructibleWallGenerator/Example/Prefabs/Main Camera.prefab
+  uploadId: 49685

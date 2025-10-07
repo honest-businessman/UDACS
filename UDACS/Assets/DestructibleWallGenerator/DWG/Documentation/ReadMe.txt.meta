@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 4bd6440a48500fa4798414b6c84393ab
+TextScriptImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 18143
+  packageName: Destructible Wall Generator
+  packageVersion: 1.3
+  assetPath: Assets/DestructibleWallGenerator/DWG/Documentation/ReadMe.txt
+  uploadId: 49685

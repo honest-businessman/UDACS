@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 787de63e14f00794686b4230019f9b7e
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 18143
+  packageName: Destructible Wall Generator
+  packageVersion: 1.3
+  assetPath: Assets/DestructibleWallGenerator/DWG/Scripts/DWGBuilder.cs
+  uploadId: 49685

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 16522f49031ff414abdf1f83f1b6a36c
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 18143
+  packageName: Destructible Wall Generator
+  packageVersion: 1.3
+  assetPath: Assets/DestructibleWallGenerator/Example/Materials/Eerie Skybox.mat
+  uploadId: 49685
