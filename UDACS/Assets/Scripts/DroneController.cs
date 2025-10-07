@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 
@@ -27,7 +28,7 @@ public class DroneController : MonoBehaviour
     float modeAxis;
 
     float[] maxYawRate = { 100f, 200f, 250f }; // Degrees/s
-    float[] maxRollPitchRate = { 5f, 10f, 240f };
+    float[] maxRollPitchRate = { 2f, 5f, 240f };
     float[] turnAcceleration = { 5f, 10f, 200f };
     float[] maxTiltAngle = { 5f, 15f }; // Normal & Sport max roll
 
@@ -37,6 +38,7 @@ public class DroneController : MonoBehaviour
 
     float minHeight = 1f; // minimum height above ground
 
+    float cameraOffset = 0f;
     float flightPauseRTHInput;
     byte rthTimer;
     bool rthPressed;
@@ -125,7 +127,7 @@ public class DroneController : MonoBehaviour
 
         // Stabilize camera
         Vector3 mainCameraTransform = Camera.main.transform.localEulerAngles;
-        Camera.main.transform.localEulerAngles = (mode == Mode.Manual)? Vector3.zero : new Vector3(-transform.eulerAngles.x, mainCameraTransform.y, mainCameraTransform.z);
+        Camera.main.transform.localEulerAngles = (mode == Mode.Manual) ? new Vector3(mainCameraTransform.x + Mathf.DeltaAngle(mainCameraTransform.x, cameraOffset = Mathf.Clamp(cameraOffset + PlayerInteraction.CameraAdjust.ReadValue<float>() / 4f, -90, 90)), mainCameraTransform.y, mainCameraTransform.z) : (Mathf.Abs(Mathf.DeltaAngle(mainCameraTransform.x, -transform.eulerAngles.x)) < 1f) ? new Vector3(-transform.eulerAngles.x, mainCameraTransform.y, mainCameraTransform.z) : new Vector3(mainCameraTransform.x + Mathf.DeltaAngle(mainCameraTransform.x, -transform.eulerAngles.x) * Time.deltaTime * 20f, mainCameraTransform.y, mainCameraTransform.z);
     }
 
     Quaternion? levelRotation = null;

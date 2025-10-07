@@ -72,7 +72,7 @@
                     "name": "CameraAdjust",
                     "type": "Value",
                     "id": "d3da12ec-eeee-4825-801e-0889fbd1e5a5",
-                    "expectedControlType": "",
+                    "expectedControlType": "Axis",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
@@ -586,7 +586,7 @@
                 {
                     "name": "positive",
                     "id": "4407efad-95f2-48a1-9cb5-7b56a36e7627",
-                    "path": "<Gamepad>/leftStick/down",
+                    "path": "<Gamepad>/dpad/down",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Gamepad",
