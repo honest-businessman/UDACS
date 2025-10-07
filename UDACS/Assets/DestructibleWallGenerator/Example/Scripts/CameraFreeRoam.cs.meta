@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 4261a79dede0e4b42935ff1712756c2b
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 18143
+  packageName: Destructible Wall Generator
+  packageVersion: 1.3
+  assetPath: Assets/DestructibleWallGenerator/Example/Scripts/CameraFreeRoam.cs
+  uploadId: 49685
