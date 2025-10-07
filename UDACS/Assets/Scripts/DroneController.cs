@@ -37,15 +37,53 @@ public class DroneController : MonoBehaviour
 
     float minHeight = 1f; // minimum height above ground
 
+    float flightPauseRTHInput;
+    byte rthTimer;
+    bool rthPressed;
+
     void Start()
     {
         rigidBody = GetComponent<Rigidbody>();
+        rthTimer = 0;
     }
+
     bool modePushed = false;
     void Update()
     {
+        // Initialize Controls
+        flightPauseRTHInput = PlayerInteraction.FlightPauseRTH.ReadValue<float>();
+
+        if (PlayerInteraction.ControlSet == "Gamepad")
+        {
+            // Pause and return to home input handling
+            if (flightPauseRTHInput == 1)
+            {
+                if (rthTimer > 60f * Time.deltaTime)
+                {
+                    rthPressed = false;
+                    RTH();
+                }
+                else
+                {
+                    rthPressed = true;
+                    rthTimer++;
+                }
+            }
+            else if (rthPressed)
+            {
+                FlightPause();
+                rthPressed = false;
+            }
+            else rthTimer = 0;
+        }
+        else if (PlayerInteraction.ControlSet == "KeyboardMouse")
+        {
+            if (flightPauseRTHInput == 1) FlightPause();
+            else if (flightPauseRTHInput == -1) RTH();
+        }
+
         if (PlayerInteraction.LeftStick == null) return;
-        // Initialize Inputs
+        // Initialize Stick Inputs
         Vector2 leftStickRaw = PlayerInteraction.LeftStick.ReadValue<Vector2>();
         Vector2 rightStickRaw = PlayerInteraction.RightStick.ReadValue<Vector2>();
         float deadzone = 0.1f;
@@ -89,11 +127,13 @@ public class DroneController : MonoBehaviour
         Vector3 mainCameraTransform = Camera.main.transform.localEulerAngles;
         Camera.main.transform.localEulerAngles = (mode == Mode.Manual)? Vector3.zero : new Vector3(-transform.eulerAngles.x, mainCameraTransform.y, mainCameraTransform.z);
     }
+
     Quaternion? levelRotation = null;
     float levellingProgress = 0f;
     float? speedLastFrame;
     float? verticalSpeedLastFrame;
     bool wasManual;
+
     private void FixedUpdate()
     {
         // LeftStick X == Yaw
@@ -185,5 +225,15 @@ public class DroneController : MonoBehaviour
         if (verticalSpeedLastFrame == null) verticalSpeedLastFrame = 0f;
         verticalSpeedText.text = $"{(rigidBody.linearVelocity.y - verticalSpeedLastFrame / 50) * 3.6:0.0}kph";
         speedLastFrame = rigidBody.linearVelocity.y;
+    }
+
+    void RTH()
+    {
+
+    }
+
+    void FlightPause()
+    {
+
     }
 }
