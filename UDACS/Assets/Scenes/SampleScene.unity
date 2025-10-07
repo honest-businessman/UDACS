@@ -962,6 +962,7 @@ MonoBehaviour:
   speedText: {fileID: 449168319}
   verticalSpeedText: {fileID: 1592069532}
   modeText: {fileID: 1771749272}
+  deadzone: 0.1
   mode: 2
 --- !u!114 &843383611
 MonoBehaviour:
