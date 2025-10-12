@@ -12,6 +12,7 @@ public class DWGDestroyer : MonoBehaviour
 	void Start()
 	{
         sfx = GetComponent<SFXScript>();
+		Destroy(gameObject, 40f);
 	}
 	
 	void OnCollisionEnter(Collision col)
