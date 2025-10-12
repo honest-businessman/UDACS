@@ -20,5 +20,13 @@ public class ThrowObject : MonoBehaviour {
         if (!requiresLoading) loaded = false;
         GameObject go = Instantiate(objectPrefab, transform.position - transform.up, Quaternion.identity);
         Rigidbody rb = go.GetComponent<Rigidbody>();
+        
+        SFXScript sfx = go.GetComponent<SFXScript>();
+        if (sfx != null)
+        {
+            sfx.ActivateGrenade();
+        }
+        Destroy(go, lifetime);
     }
+
 }
