@@ -10,6 +10,7 @@ public class SFXScript : MonoBehaviour
     private bool hasExploded = false;
     private AudioSource audioSource;
     private bool isActivated = false;
+    public DroneDestroy DroneCrashOnly;
 
     void Awake()
     {
@@ -26,10 +27,9 @@ public class SFXScript : MonoBehaviour
     }
     public void DroneCrash()
     {
-        if (!isActivated)
+        if (DroneCrashOnly)
         {
-            isActivated = true;
-            Explode();
+            DroneExplode();
         }
     }
 
@@ -56,6 +56,18 @@ public class SFXScript : MonoBehaviour
 
         Destroy(gameObject, 0.5f); // Destroy grenade object
     }
+    void DroneExplode()
+    {
+        if (hasExploded) return;
+        hasExploded = true;
+        Vector3 pos = transform.position;
+        // Explosion sound
+        if (audioSource != null && explosionSound != null)
+            audioSource.PlayOneShot(explosionSound);
+        // Spawn fire and extra effects
+        StartCoroutine(SpawnFire(pos));
+        StartCoroutine(SpawnExplosionEffect(pos));
+    }
 
     private IEnumerator SpawnExplosionEffect(Vector3 position)
     {
@@ -66,8 +78,17 @@ public class SFXScript : MonoBehaviour
         Light light = explosion.AddComponent<Light>();
         light.type = LightType.Point;
         light.color = Color.yellow;
-        light.intensity = 8f;
-        light.range = 8f;
+
+        if (DroneCrashOnly = true)
+        {
+            light.intensity = 4f;
+            light.range = 4f;
+        }
+        else
+        {
+            light.intensity = 8f;
+            light.range = 8f;
+        }
 
         // Flash effect
         float fadeTime = 0.2f;
@@ -102,8 +123,16 @@ public class SFXScript : MonoBehaviour
 
         Light fireLight = fire.AddComponent<Light>();
         fireLight.color = Color.red;
-        fireLight.intensity = 2f;
-        fireLight.range = 5f;
+        if (DroneCrashOnly = true)
+        {
+            fireLight.intensity = 1f;
+            fireLight.range = 3f;
+        }
+        else
+        {
+            fireLight.intensity = 2f;
+            fireLight.range = 5f;
+        }
 
         float timer = 0f;
         while (timer < fireDuration)
