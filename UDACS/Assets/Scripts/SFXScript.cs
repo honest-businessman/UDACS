@@ -3,13 +3,12 @@ using UnityEngine;
 
 public class SFXScript : MonoBehaviour
 {
+    public bool isDrone = false;
     public AudioClip explosionSound;
     public float fireDuration = 2f;
     public float fireSize = 3f;
-    public float fuseTime = 5f;
     private bool hasExploded = false;
     private AudioSource audioSource;
-    public DroneDestroy DroneCrashOnly;
 
     void Awake()
     {
@@ -31,18 +30,6 @@ public class SFXScript : MonoBehaviour
         StartCoroutine(SpawnFire(pos));
         StartCoroutine(SpawnExplosionEffect(pos));
     }
-    public void DroneExplode()
-    {
-        if (hasExploded) return;
-        hasExploded = true;
-        Vector3 pos = transform.position;
-        // Explosion sound
-        if (audioSource != null && explosionSound != null)
-            audioSource.PlayOneShot(explosionSound);
-        // Spawn fire and extra effects
-        StartCoroutine(SpawnFire(pos));
-        StartCoroutine(SpawnExplosionEffect(pos));
-    }
 
     private IEnumerator SpawnExplosionEffect(Vector3 position)
     {
@@ -54,7 +41,7 @@ public class SFXScript : MonoBehaviour
         light.type = LightType.Point;
         light.color = Color.yellow;
 
-        if (DroneCrashOnly.crashed == true)
+        if (isDrone == true)
         {
             light.intensity = 4f;
             light.range = 4f;
@@ -98,7 +85,7 @@ public class SFXScript : MonoBehaviour
 
         Light fireLight = fire.AddComponent<Light>();
         fireLight.color = Color.red;
-        if (DroneCrashOnly.crashed == true)
+        if (isDrone == true)
         {
             fireLight.intensity = 1f;
             fireLight.range = 3f;

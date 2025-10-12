@@ -2,9 +2,8 @@ using UnityEngine;
 
 public class DroneDestroy : MonoBehaviour
 {
-    public bool crashed;
     private void OnCollisionEnter(Collision coll)
     {
-        
+        if (coll.relativeVelocity.magnitude > 5f) GetComponent<SFXScript>().Explode();
     }
 }
