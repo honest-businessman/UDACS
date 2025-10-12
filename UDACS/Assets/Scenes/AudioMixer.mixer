@@ -14,6 +14,39 @@ AudioMixerEffectController:
   m_SendTarget: {fileID: 0}
   m_EnableWetMix: 0
   m_Bypass: 0
+--- !u!244 &-6114437911904285512
+AudioMixerEffectController:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_EffectID: dfd4a60f89274524b8d99078f1f7d24b
+  m_EffectName: Attenuation
+  m_MixLevel: f374b0131627074479186c47155dc421
+  m_Parameters: []
+  m_SendTarget: {fileID: 0}
+  m_EnableWetMix: 0
+  m_Bypass: 0
+--- !u!243 &-6111798435833113311
+AudioMixerGroupController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: HighRPM
+  m_AudioMixer: {fileID: 24100000}
+  m_GroupID: 0b3c786d2429d014f92a98efe6a55317
+  m_Children: []
+  m_Volume: c91d8e5f7a369bf41adafb572c6a74dc
+  m_Pitch: 1d1ab325b4813ce4bb0061426a1f8036
+  m_Send: 00000000000000000000000000000000
+  m_Effects:
+  - {fileID: -6114437911904285512}
+  m_UserColorIndex: 0
+  m_Mute: 0
+  m_Solo: 0
+  m_BypassEffects: 0
 --- !u!244 &-1340997272810011421
 AudioMixerEffectController:
   m_ObjectHideFlags: 3
@@ -43,12 +76,18 @@ AudioMixerController:
   m_SuspendThreshold: -80
   m_EnableSuspend: 1
   m_UpdateMode: 0
-  m_ExposedParameters: []
+  m_ExposedParameters:
+  - guid: c91d8e5f7a369bf41adafb572c6a74dc
+    name: HighRPM
+  - guid: eab4e89ead880e144b08e258b63c9353
+    name: IdleRPM
   m_AudioMixerGroupViews:
   - guids:
     - 2da6e2e565224054aae9b2746bff96ac
     - 1ef70af9bb1dbb5419d47aee82b276c9
     - ad0fb707c95c1ff4594159d1d9ace8c4
+    - 3cf1ef2178ae0aa4596a9883e048dd73
+    - 0b3c786d2429d014f92a98efe6a55317
     name: View
   m_CurrentViewIndex: 0
   m_TargetSnapshot: {fileID: 24500006}
@@ -63,6 +102,8 @@ AudioMixerGroupController:
   m_GroupID: 2da6e2e565224054aae9b2746bff96ac
   m_Children:
   - {fileID: 9213199854416106956}
+  - {fileID: 4679995591125971359}
+  - {fileID: -6111798435833113311}
   m_Volume: 31d497c55bfb15045a51d4af6fe5a7da
   m_Pitch: d2d39000cfc26b448a4303824b0489f2
   m_Send: 00000000000000000000000000000000
@@ -96,7 +137,11 @@ AudioMixerSnapshotController:
   m_AudioMixer: {fileID: 24100000}
   m_SnapshotID: 0135de8c0768967439c702ece3b4d193
   m_FloatValues:
+    6cd37b031596cc749adc57d1303e17a8: -20.1512
+    b1b971140716f0744a41f55207008e88: 1
     31d497c55bfb15045a51d4af6fe5a7da: 0.1355254
+    eab4e89ead880e144b08e258b63c9353: 0
+    c91d8e5f7a369bf41adafb572c6a74dc: 0
   m_TransitionOverrides: {}
 --- !u!243 &3869712753632217251
 AudioMixerGroupController:
@@ -117,6 +162,39 @@ AudioMixerGroupController:
   m_Mute: 0
   m_Solo: 0
   m_BypassEffects: 0
+--- !u!243 &4679995591125971359
+AudioMixerGroupController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: IdleRPM
+  m_AudioMixer: {fileID: 24100000}
+  m_GroupID: 3cf1ef2178ae0aa4596a9883e048dd73
+  m_Children: []
+  m_Volume: eab4e89ead880e144b08e258b63c9353
+  m_Pitch: b1b971140716f0744a41f55207008e88
+  m_Send: 00000000000000000000000000000000
+  m_Effects:
+  - {fileID: 8901628754367927715}
+  m_UserColorIndex: 0
+  m_Mute: 0
+  m_Solo: 0
+  m_BypassEffects: 0
+--- !u!244 &8901628754367927715
+AudioMixerEffectController:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_EffectID: 40a5da2792c3ba744a73458a8ad4d793
+  m_EffectName: Attenuation
+  m_MixLevel: b0ceca8004a54d640ac1bcf356e9badd
+  m_Parameters: []
+  m_SendTarget: {fileID: 0}
+  m_EnableWetMix: 0
+  m_Bypass: 0
 --- !u!243 &9213199854416106956
 AudioMixerGroupController:
   m_ObjectHideFlags: 0

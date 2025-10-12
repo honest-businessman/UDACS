@@ -38,5 +38,7 @@ public class PlayerInteraction : MonoBehaviour
         StartStop = playerInput.actions["Start Stop"];
         CameraAdjust = playerInput.actions["CameraAdjust"];
         Deploy = playerInput.actions["Deploy"];
+
+        if (StartStop.triggered) Debug.Log("Hi.");
     }
 }
