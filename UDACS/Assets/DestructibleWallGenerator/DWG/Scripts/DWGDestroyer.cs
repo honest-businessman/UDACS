@@ -8,9 +8,11 @@ public class DWGDestroyer : MonoBehaviour
 	
 	void OnCollisionEnter(Collision col)
 	{
-			ExplodeForce();
-			Destroy(gameObject);
-	}
+		ExplodeForce();
+		Destroy(gameObject);
+        SFXScript sfx = GetComponent<SFXScript>();
+        sfx.Explode();
+    }
 	
 	// Explode force by radius only if a destructible tag is found
 	void ExplodeForce()

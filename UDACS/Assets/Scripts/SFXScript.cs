@@ -9,7 +9,6 @@ public class SFXScript : MonoBehaviour
     public float fuseTime = 5f;
     private bool hasExploded = false;
     private AudioSource audioSource;
-    private bool isActivated = false;
     public DroneDestroy DroneCrashOnly;
 
     void Awake()
@@ -17,29 +16,7 @@ public class SFXScript : MonoBehaviour
         audioSource = gameObject.AddComponent<AudioSource>();
     }
 
-    public void ActivateGrenade()
-    {
-        if (!isActivated)
-        {
-            isActivated = true;
-            StartCoroutine(FuseAndExplode());
-        }
-    }
-    public void DroneCrash()
-    {
-        if (DroneCrashOnly)
-        {
-            DroneExplode();
-        }
-    }
-
-    private IEnumerator FuseAndExplode()
-    {
-        yield return new WaitForSeconds(fuseTime);
-        Explode();
-    }
-
-    void Explode()
+    public void Explode()
     {
         if (hasExploded) return;
         hasExploded = true;
@@ -53,10 +30,8 @@ public class SFXScript : MonoBehaviour
         // Spawn fire and extra effects
         StartCoroutine(SpawnFire(pos));
         StartCoroutine(SpawnExplosionEffect(pos));
-
-        Destroy(gameObject, 0.5f); // Destroy grenade object
     }
-    void DroneExplode()
+    public void DroneExplode()
     {
         if (hasExploded) return;
         hasExploded = true;
@@ -79,7 +54,7 @@ public class SFXScript : MonoBehaviour
         light.type = LightType.Point;
         light.color = Color.yellow;
 
-        if (DroneCrashOnly = true)
+        if (DroneCrashOnly.crashed == true)
         {
             light.intensity = 4f;
             light.range = 4f;
@@ -123,7 +98,7 @@ public class SFXScript : MonoBehaviour
 
         Light fireLight = fire.AddComponent<Light>();
         fireLight.color = Color.red;
-        if (DroneCrashOnly = true)
+        if (DroneCrashOnly.crashed == true)
         {
             fireLight.intensity = 1f;
             fireLight.range = 3f;
