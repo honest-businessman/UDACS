@@ -26,9 +26,9 @@ public class DWGDestroyer : MonoBehaviour
 	
 	// Explode force by radius only if a destructible tag is found
 	void ExplodeForce()
-	{	
-        sfx.Explode();
-		Vector3 explodePos = transform.position;
+	{
+		sfx.Explode();
+        Vector3 explodePos = transform.position;
 		Collider[] colliders = Physics.OverlapSphere(explodePos, radius); 
 		foreach (Collider hit in colliders)
 		{
