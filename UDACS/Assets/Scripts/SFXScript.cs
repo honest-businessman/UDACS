@@ -7,7 +7,6 @@ public class SFXScript : MonoBehaviour
     public float explosionRadius = 5f;
     public float explosionForce = 700f;
     public float maxDamage = 100f;
-    public GameObject explosionEffectPrefab;
     public AudioClip explosionSound;
     public float fireDuration = 2f;
     public float fireSize = 3f;
@@ -42,10 +41,6 @@ public class SFXScript : MonoBehaviour
         hasExploded = true;
 
         Vector3 pos = transform.position;
-
-        // Explosion prefab
-        if (explosionEffectPrefab != null)
-            Instantiate(explosionEffectPrefab, pos, Quaternion.identity);
 
         // Explosion sound
         if (audioSource != null && explosionSound != null)
