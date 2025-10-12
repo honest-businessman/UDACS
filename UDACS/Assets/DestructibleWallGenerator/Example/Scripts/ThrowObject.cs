@@ -6,40 +6,19 @@ public class ThrowObject : MonoBehaviour {
     public GameObject objectPrefab;
     public float throwForce = 1000f;
     public float lifetime = 5f;
+    public bool loaded = false;
+    public bool requiresLoading = true;
 
-    void Update(){
-		if(Input.GetKeyDown(KeyCode.LeftControl)){
-			Throw();
-		}
-	}
+    void Update()
+    {
+        if (PlayerInteraction.Deploy.triggered && loaded) Throw();
+    }
 	
-	// Create a sphere and throw it
-	void Throw(){
-        if (objectPrefab == null)
-        {
-            Debug.LogWarning("No prefab assigned to ThrowObject!");
-            return;
-        }
-
-        // Instantiate prefab in front of the player
-        GameObject go = Instantiate(objectPrefab, transform.position + transform.forward, Quaternion.identity);
-
-        // Add Rigidbody if prefab doesn’t have one
+	// Create a grenade and drop it
+	void Throw()
+    {
+        if (!requiresLoading) loaded = false;
+        GameObject go = Instantiate(objectPrefab, transform.position - transform.up, Quaternion.identity);
         Rigidbody rb = go.GetComponent<Rigidbody>();
-        if (rb == null)
-        {
-            rb = go.AddComponent<Rigidbody>();
-        }
-
-        // Apply forward force
-        rb.AddForce(transform.forward * throwForce);
-
-        // Optional: add destroyer or self-destruct after 5 seconds
-        if (go.GetComponent<DWGDestroyer>() == null)
-        {
-            go.AddComponent<DWGDestroyer>();
-        }
-
-        Destroy(go, lifetime);
     }
 }
