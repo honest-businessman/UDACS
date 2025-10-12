@@ -4,8 +4,6 @@ using System.Collections;
 public class ThrowObject : MonoBehaviour {
 
     public GameObject objectPrefab;
-    public float throwForce = 1000f;
-    public float lifetime = 5f;
     public bool loaded = false;
     public bool requiresLoading = true;
 
@@ -22,11 +20,6 @@ public class ThrowObject : MonoBehaviour {
         Rigidbody rb = go.GetComponent<Rigidbody>();
         
         SFXScript sfx = go.GetComponent<SFXScript>();
-        if (sfx != null)
-        {
-            sfx.ActivateGrenade();
-        }
-        Destroy(go, lifetime);
+        sfx.ActivateGrenade();
     }
-
 }

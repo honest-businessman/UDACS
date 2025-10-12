@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 
-public class DWGDestroyer : MonoBehaviour {
+public class DWGDestroyer : MonoBehaviour
+{
 
 	public float radius = 40;
 	public float force = 100f;
