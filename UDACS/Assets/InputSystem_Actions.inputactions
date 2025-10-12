@@ -61,7 +61,7 @@
                 },
                 {
                     "name": "Start Stop",
-                    "type": "Button",
+                    "type": "Value",
                     "id": "608a4b40-26f7-4b97-a864-82a7f969719b",
                     "expectedControlType": "",
                     "processors": "",

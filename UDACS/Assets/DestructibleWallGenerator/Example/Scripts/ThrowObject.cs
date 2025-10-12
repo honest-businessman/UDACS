@@ -16,7 +16,7 @@ public class ThrowObject : MonoBehaviour {
 	void Throw()
     {
         if (!requiresLoading) loaded = false;
-        GameObject go = Instantiate(objectPrefab, transform.position - transform.up, Quaternion.identity);
+        GameObject go = Instantiate(objectPrefab, transform.position - transform.up * 2, Quaternion.identity);
         Rigidbody rb = go.GetComponent<Rigidbody>();
     }
 }

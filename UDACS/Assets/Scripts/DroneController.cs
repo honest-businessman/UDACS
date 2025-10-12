@@ -1,5 +1,6 @@
-using UnityEngine;
+using sc.terrain.proceduralpainter;
 using TMPro;
+using UnityEngine;
 
 [RequireComponent (typeof(Rigidbody))]
 public class DroneController : MonoBehaviour
@@ -57,6 +58,9 @@ public class DroneController : MonoBehaviour
     bool rthTriggered;
 
     bool flightPause = false;
+
+    float previousPropellerSpeed = 0f;
+    bool pressedStartStop = false;
     void Update()
     {
         if (droneOn)
@@ -80,12 +84,14 @@ public class DroneController : MonoBehaviour
                         Audio.instance.fastEngine.Play();
                         break;
                     case 2:
-                        float propellerSpeed = Mathf.Abs(Mathf.Clamp(leftStick.magnitude + (rightStick.magnitude / 2), 0, 1));
-                        float fastVol = propellerSpeed / 20f;
-                        Audio.instance.mixer.SetFloat("HighRPM", Mathf.Log10(Mathf.Clamp(fastVol, 0.0001f, 1f)) * 20f);
+                        float responsiveness = 5f;
+                        // Compute propeller intensity and smooth to avoid jitter
+                        float smoothPropellerSpeed = Mathf.Lerp(previousPropellerSpeed, Mathf.Clamp01(leftStick.magnitude + (rightStick.magnitude / 2f)), Time.deltaTime * responsiveness);
+                        previousPropellerSpeed = smoothPropellerSpeed;
 
-                        float idleVol = (1f - propellerSpeed) / 10f;
-                        Audio.instance.mixer.SetFloat("IdleRPM", Mathf.Log10(Mathf.Clamp(idleVol, 0.0001f, 1f)) * 20f);
+                        // Convert to decibels safely and apply to mixer
+                        Audio.instance.mixer.SetFloat("HighRPM", Mathf.Lerp(-60f, -30f, smoothPropellerSpeed));
+                        Audio.instance.mixer.SetFloat("IdleRPM", Mathf.Lerp(-50f, -30f, 1f - smoothPropellerSpeed));
                         break;
                 }
             }
@@ -131,8 +137,9 @@ public class DroneController : MonoBehaviour
             }
         }
 
-        if (PlayerInteraction.StartStop.triggered && !droneOn)
+        if (PlayerInteraction.StartStop.ReadValue<float>() > 0.5f && !droneOn && !pressedStartStop)
         {
+            pressedStartStop = true;
             if (mode == Mode.Manual)
             {
                 droneOn = true;
@@ -143,11 +150,13 @@ public class DroneController : MonoBehaviour
                 droneOn = true;
             }
         }
-        else if (PlayerInteraction.StartStop.triggered && droneOn && mode == Mode.Manual)
+        else if (PlayerInteraction.StartStop.ReadValue<float>() > 0.5f && droneOn && mode == Mode.Manual && !pressedStartStop)
         {
+            pressedStartStop = true;
             sequence = 0;
             droneOn = false;
         }
+        else if (PlayerInteraction.StartStop.ReadValue<float>() < 0.1f) pressedStartStop = false;
 
         if (!droneOn)
         {
@@ -161,32 +170,6 @@ public class DroneController : MonoBehaviour
             flightPause = false;
             RTH();
         }
-
-        if (PlayerInteraction.LeftStick == null) return;
-        // Initialize Stick Inputs
-        Vector2 leftStickRaw = PlayerInteraction.LeftStick.ReadValue<Vector2>();
-        Vector2 rightStickRaw = PlayerInteraction.RightStick.ReadValue<Vector2>();
-        float deadzone = 0.1f;
-
-        // Apply deadzones
-        Vector2 deadzoneLeftStick = new(
-            (Mathf.Abs(leftStickRaw.x) < deadzone) ? 0f : Mathf.Sign(leftStickRaw.x) * ((Mathf.Abs(leftStickRaw.x) - deadzone) / (1f - deadzone)),
-            (Mathf.Abs(leftStickRaw.y) < deadzone) ? 0f : Mathf.Sign(leftStickRaw.y) * ((Mathf.Abs(leftStickRaw.y) - deadzone) / (1f - deadzone))
-        );
-        Vector2 deadzoneRightStick = new(
-            (Mathf.Abs(rightStickRaw.x) < deadzone) ? 0f : Mathf.Sign(rightStickRaw.x) * ((Mathf.Abs(rightStickRaw.x) - deadzone) / (1f - deadzone)),
-            (Mathf.Abs(rightStickRaw.y) < deadzone) ? 0f : Mathf.Sign(rightStickRaw.y) * ((Mathf.Abs(rightStickRaw.y) - deadzone) / (1f - deadzone))
-        );
-
-        // Apply deadzones
-        if (!rthTriggered && droneOn && !flightPause)
-        {
-            leftStick = deadzoneLeftStick;
-            rightStick = deadzoneRightStick;
-        }
-
-        // If inputs touched disable RTH
-        if (deadzoneLeftStick != Vector2.zero || deadzoneRightStick != Vector2.zero) rthTriggered = false;
 
         modeAxis = PlayerInteraction.ModeToggle.ReadValue<float>();
 
@@ -229,8 +212,44 @@ public class DroneController : MonoBehaviour
     float distanceFromGround;
 
     byte sequence = 0;
+
+    Vector2 previousLeftStick;
+    Vector2 previousRightStick;
     private void FixedUpdate()
     {
+        if (PlayerInteraction.LeftStick == null) return;
+        // Initialize Stick Inputs
+        Vector2 leftStickRaw = PlayerInteraction.LeftStick.ReadValue<Vector2>();
+        Vector2 rightStickRaw = PlayerInteraction.RightStick.ReadValue<Vector2>();
+        float deadzone = 0.1f;
+
+        // Apply deadzones
+        Vector2 deadzoneLeftStick = new(
+            (Mathf.Abs(leftStickRaw.x) < deadzone) ? 0f : Mathf.Sign(leftStickRaw.x) * ((Mathf.Abs(leftStickRaw.x) - deadzone) / (1f - deadzone)),
+            (Mathf.Abs(leftStickRaw.y) < deadzone) ? 0f : Mathf.Sign(leftStickRaw.y) * ((Mathf.Abs(leftStickRaw.y) - deadzone) / (1f - deadzone))
+        );
+        Vector2 deadzoneRightStick = new(
+            (Mathf.Abs(rightStickRaw.x) < deadzone) ? 0f : Mathf.Sign(rightStickRaw.x) * ((Mathf.Abs(rightStickRaw.x) - deadzone) / (1f - deadzone)),
+            (Mathf.Abs(rightStickRaw.y) < deadzone) ? 0f : Mathf.Sign(rightStickRaw.y) * ((Mathf.Abs(rightStickRaw.y) - deadzone) / (1f - deadzone))
+        );
+
+        // Apply deadzones
+        if (!rthTriggered && droneOn && !flightPause)
+        {
+            leftStick = deadzoneLeftStick;
+            rightStick = deadzoneRightStick;
+        }
+
+        // Smooth both sticks over time to remove jitter
+        leftStick = Vector2.Lerp(previousLeftStick, leftStick, Time.deltaTime * 10f);
+        rightStick = Vector2.Lerp(previousRightStick, rightStick, Time.deltaTime * 10f);
+
+        previousLeftStick = leftStick;
+        previousRightStick = rightStick;
+
+        // If inputs touched disable RTH
+        if (deadzoneLeftStick != Vector2.zero || deadzoneRightStick != Vector2.zero) rthTriggered = false;
+
         if (!droneOn) sequence = 0;
 
         // LeftStick X == Yaw
@@ -317,12 +336,17 @@ public class DroneController : MonoBehaviour
             rigidBody.useGravity = true;
         }
 
-        if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, 999f))
+        RaycastHit[] hits = Physics.RaycastAll(transform.position, Vector3.down, 999f);
+        heightText.text = "H: XXXXm";
+        foreach (RaycastHit hit in hits)
         {
-            distanceFromGround = hit.distance;
-            heightText.text = $"H: {distanceFromGround:0.0}m";
+            if (!hit.collider.isTrigger)
+            {
+                distanceFromGround = hit.distance;
+                heightText.text = $"H: {distanceFromGround:0.0}m";
+                break;
+            }
         }
-        else heightText.text = "H: XXXXm";
 
         // Calculate absolute speed
         speedText.text = $"{Mathf.Sqrt(Mathf.Pow(rigidBody.linearVelocity.z, 2) + Mathf.Pow(rigidBody.linearVelocity.x, 2)) * 3.6:0.0}kph";
@@ -347,7 +371,7 @@ public class DroneController : MonoBehaviour
         rightStick.y = Mathf.Clamp(horizontalDistance / 10, 0f, 1f);
 
         // End condition
-        rthTriggered = horizontalDistance > 1f || distanceFromGround > 1.1f && mode != Mode.Manual;
+        rthTriggered = horizontalDistance > 0.5f || distanceFromGround > 1.5f && mode != Mode.Manual;
     }
 
     void FlightPause()

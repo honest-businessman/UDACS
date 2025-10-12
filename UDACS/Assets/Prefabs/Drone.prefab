@@ -637,6 +637,8 @@ GameObject:
   - component: {fileID: 598962469978752190}
   - component: {fileID: 7594072397601323993}
   - component: {fileID: 4775625704252875631}
+  - component: {fileID: 420410067435104547}
+  - component: {fileID: 4687290433385738018}
   m_Layer: 0
   m_Name: Drone
   m_TagString: Untagged
@@ -691,7 +693,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7065669588379045375}
   serializedVersion: 4
-  m_Mass: 1
+  m_Mass: 3
   m_Drag: 0.5
   m_AngularDrag: 1
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -727,6 +729,7 @@ MonoBehaviour:
   verticalSpeedText: {fileID: 0}
   distanceFromHomeText: {fileID: 0}
   modeText: {fileID: 0}
+  droneOn: 0
   deadzone: 0.1
   mode: 0
 --- !u!114 &7594072397601323993
@@ -742,7 +745,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectPrefab: {fileID: 8905319600449973105, guid: 4cc4f4b4e07a68849b15435322789fcf, type: 3}
-  loaded: 0
+  loaded: 1
   requiresLoading: 1
 --- !u!114 &4775625704252875631
 MonoBehaviour:
@@ -759,6 +762,35 @@ MonoBehaviour:
   maxWindStrength: 5
   windChangeInterval: 10
   turbulenceAmount: 3
+--- !u!114 &420410067435104547
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7065669588379045375}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 056683d1628e28a438990f8fbceaed22, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4687290433385738018
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7065669588379045375}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ee688c29c470194297b89cd9adef7c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isDrone: 1
+  explosionSound: {fileID: 8300000, guid: bf119238edb04e142b3374cace8cdd6b, type: 3}
+  fireDuration: 2
+  fireSize: 3
+  hasExploded: 0
 --- !u!1001 &1269490699745886905
 PrefabInstance:
   m_ObjectHideFlags: 0
