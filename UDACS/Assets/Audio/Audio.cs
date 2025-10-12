@@ -1,9 +1,13 @@
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.TextCore.LowLevel;
 
 public class Audio : MonoBehaviour
 {
     public static Audio instance;
+
+    public AudioSource idleEngine;
+    public AudioSource fastEngine;
 
     public AudioMixer mixer;
     public AudioSource DroneSource;
@@ -11,34 +15,36 @@ public class Audio : MonoBehaviour
     public AudioClip[] DroneSounds;
     public AudioClip[] VoiceLines;
 
-    public float Dronepitch;
-    public float Voicepitch;
+    public float Dronepitch = 1f;
+    public float Voicepitch = 1f;
 
     public void Awake() // This makes sure that there is only one instance of the AudioManager
     {
         if (instance == null)
         {
             instance = this;
-            DontDestroyOnLoad(gameObject);
         }
-        else
-        {
-            Destroy(gameObject);
-        }
+        else Destroy(gameObject);
     }
-    public void PlayDroneSound() //call this function to play a drone sound
+    public void PlayDroneSound(string soundName) //call this function to play a drone sound
     {
-        AudioClip clip = System.Array.Find(DroneSounds, clip => clip.name == "SoundName");
+        AudioClip clip = System.Array.Find(DroneSounds, clip => clip.name == soundName);
         if (clip == null)
-        {   Debug.LogWarning("Sound not found!");   return;}
+        {
+            Debug.LogWarning("Sound not found!");
+            return;
+        }
         DroneSource.pitch = Dronepitch; //this controls the pitch of the drone sounds
         DroneSource.PlayOneShot(clip);
     }
-    public void PlayVoiceLine() //call this function to play a voice line
+    public void PlayVoiceLine(string soundName) //call this function to play a voice line
     {
-        AudioClip clip = System.Array.Find(VoiceLines, clip => clip.name == "SoundName");
+        AudioClip clip = System.Array.Find(VoiceLines, clip => clip.name == soundName);
         if (clip == null)
-        { Debug.LogWarning("Sound not found!"); return; }
+        {
+            Debug.LogWarning("Sound not found!");
+            return;
+        }
         VoiceLineSource.pitch = Voicepitch; //this controls the pitch of the voice lines
         VoiceLineSource.PlayOneShot(clip);
     }
