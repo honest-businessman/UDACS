@@ -3,14 +3,10 @@ using UnityEngine;
 
 public class SFXScript : MonoBehaviour
 {
-    public float fuseTime = 5f;
-    public float explosionRadius = 5f;
-    public float explosionForce = 700f;
-    public float maxDamage = 100f;
     public AudioClip explosionSound;
     public float fireDuration = 2f;
     public float fireSize = 3f;
-
+    public float fuseTime = 5f;
     private bool hasExploded = false;
     private AudioSource audioSource;
     private bool isActivated = false;
@@ -26,6 +22,14 @@ public class SFXScript : MonoBehaviour
         {
             isActivated = true;
             StartCoroutine(FuseAndExplode());
+        }
+    }
+    public void DroneCrash()
+    {
+        if (!isActivated)
+        {
+            isActivated = true;
+            Explode();
         }
     }
 
@@ -45,15 +49,6 @@ public class SFXScript : MonoBehaviour
         // Explosion sound
         if (audioSource != null && explosionSound != null)
             audioSource.PlayOneShot(explosionSound);
-
-        // Apply explosion force
-        Collider[] colliders = Physics.OverlapSphere(pos, explosionRadius);
-        foreach (Collider col in colliders)
-        {
-            Rigidbody rb = col.GetComponent<Rigidbody>();
-            if (rb != null)
-                rb.AddExplosionForce(explosionForce, pos, explosionRadius);
-        }
 
         // Spawn fire and extra effects
         StartCoroutine(SpawnFire(pos));
