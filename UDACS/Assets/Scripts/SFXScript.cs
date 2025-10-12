@@ -7,7 +7,7 @@ public class SFXScript : MonoBehaviour
     public AudioClip explosionSound;
     public float fireDuration = 2f;
     public float fireSize = 3f;
-    private bool hasExploded = false;
+    public bool hasExploded = false;
     private AudioSource audioSource;
 
     void Awake()

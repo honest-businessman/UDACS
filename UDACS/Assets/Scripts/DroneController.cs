@@ -10,7 +10,7 @@ public class DroneController : MonoBehaviour
     public TMP_Text distanceFromHomeText;
     public TMP_Text modeText;
 
-    bool droneOn = false;
+    public bool droneOn = false;
 
     public float deadzone = 0.1f;
     public enum Mode
@@ -287,6 +287,9 @@ public class DroneController : MonoBehaviour
 
                 // Collective
                 rigidBody.linearVelocity = new Vector3(rigidBody.linearVelocity.x, Mathf.MoveTowards(rigidBody.linearVelocity.y, leftStick.y * maxVerticalMoveSpeed[modeId], acceleration[modeId] * Time.fixedDeltaTime), rigidBody.linearVelocity.z);
+
+                // If too close to the ground, zero out downward velocity
+                if (distanceFromGround <= minHeight && rigidBody.linearVelocity.y < 0) rigidBody.linearVelocity = new Vector3(rigidBody.linearVelocity.x, 0f, rigidBody.linearVelocity.z);
             }
             else if (mode == Mode.Manual)
             {
@@ -318,8 +321,6 @@ public class DroneController : MonoBehaviour
         {
             distanceFromGround = hit.distance;
             heightText.text = $"H: {distanceFromGround:0.0}m";
-            // If too close to the ground, zero out downward velocity
-            if (hit.distance <= minHeight && rigidBody.linearVelocity.y < 0) rigidBody.linearVelocity = new Vector3(rigidBody.linearVelocity.x, 0f, rigidBody.linearVelocity.z);
         }
         else heightText.text = "H: XXXXm";
 
