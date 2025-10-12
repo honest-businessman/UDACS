@@ -40,6 +40,12 @@ public class ThrowObject : MonoBehaviour {
             go.AddComponent<DWGDestroyer>();
         }
 
+        SFXScript sfx = go.GetComponent<SFXScript>();
+        if (sfx != null)
+        {
+            sfx.ActivateGrenade();
+        }
         Destroy(go, lifetime);
     }
+
 }
