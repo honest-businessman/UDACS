@@ -35,7 +35,7 @@ public class DroneController : MonoBehaviour
     float[] turnAcceleration = { 7f, 15f, 300f };
     float[] maxTiltAngle = { 5f, 15f }; // Normal & Sport max roll
 
-    float[] acceleration = { 40f, 80f, 100f };
+    float[] acceleration = { 40f, 80f, 150f };
     float[] maxHorizontalMoveSpeed = { 9f, 17f };
     float[] maxVerticalMoveSpeed = { 6f, 9f, 55f };
 
@@ -224,8 +224,6 @@ public class DroneController : MonoBehaviour
 
     Quaternion? levelRotation = null;
     float levellingProgress = 0f;
-    float? speedLastFrame;
-    float? verticalSpeedLastFrame;
     bool wasManual;
 
     float distanceFromGround;
@@ -326,14 +324,10 @@ public class DroneController : MonoBehaviour
         else heightText.text = "H: XXXXm";
 
         // Calculate absolute speed
-        if (speedLastFrame == null) speedLastFrame = 0f;
-        speedText.text = $"{(Mathf.Sqrt(Mathf.Pow(rigidBody.linearVelocity.z, 2) + Mathf.Pow(rigidBody.linearVelocity.x, 2)) - speedLastFrame / 50) * 3.6:0.0}kph";
-        speedLastFrame = Mathf.Sqrt(Mathf.Pow(rigidBody.linearVelocity.z, 2) + Mathf.Pow(rigidBody.linearVelocity.x, 2));
+        speedText.text = $"{Mathf.Sqrt(Mathf.Pow(rigidBody.linearVelocity.z, 2) + Mathf.Pow(rigidBody.linearVelocity.x, 2)) * 3.6:0.0}kph";
 
         // Calculate vertical speed
-        if (verticalSpeedLastFrame == null) verticalSpeedLastFrame = 0f;
-        verticalSpeedText.text = $"{(rigidBody.linearVelocity.y - verticalSpeedLastFrame / 50) * 3.6:0.0}kph";
-        speedLastFrame = rigidBody.linearVelocity.y;
+        verticalSpeedText.text = $"{rigidBody.linearVelocity.y * 3.6:0.0}kph";
 
         // Calculate distance to home
         distanceFromHomeText.text = $"D: {Vector3.Distance(startPosition, transform.position):0.0}m";

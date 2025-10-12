@@ -634,7 +634,6 @@ GameObject:
   - component: {fileID: 9041192256924851976}
   - component: {fileID: 7929304757978088173}
   - component: {fileID: 6079788266366092498}
-  - component: {fileID: 7819231292158919737}
   - component: {fileID: 598962469978752190}
   - component: {fileID: 7594072397601323993}
   - component: {fileID: 4775625704252875631}
@@ -711,36 +710,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 2
---- !u!114 &7819231292158919737
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7065669588379045375}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
-  m_NotificationBehavior: 0
-  m_UIInputModule: {fileID: 0}
-  m_DeviceLostEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_DeviceRegainedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ControlsChangedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ActionEvents: []
-  m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: 
-  m_DefaultActionMap: Drone
-  m_SplitScreenIndex: -1
-  m_Camera: {fileID: 0}
 --- !u!114 &598962469978752190
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -773,8 +742,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectPrefab: {fileID: 8905319600449973105, guid: 4cc4f4b4e07a68849b15435322789fcf, type: 3}
-  throwForce: 1000
-  lifetime: 5
+  loaded: 0
+  requiresLoading: 1
 --- !u!114 &4775625704252875631
 MonoBehaviour:
   m_ObjectHideFlags: 0
