@@ -15,6 +15,6 @@ public class DWGColliderEnabler : MonoBehaviour
 
     void OnCollisionEnter(Collision col)
     {
-		if (!rb.isKinematic) if (col.gameObject.tag == "Ground") Destroy(this, 5f);
+		if (!rb.isKinematic) Destroy(gameObject, 30f);
     }
 }
