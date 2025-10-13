@@ -2,3 +2,7 @@ Explosion Sound
 https://assetstore.unity.com/packages/audio/sound-fx/grenade-sound-fx-147490
 Fire Sprite
 https://assetstore.unity.com/packages/vfx/particles/fire-explosions/free-fire-vfx-urp-266226
+Terrain
+https://assetstore.unity.com/packages/tools/terrain/procedural-terrain-painter-188357
+Brick Destruction
+https://assetstore.unity.com/packages/3d/environments/destructible-wall-generator-18143
