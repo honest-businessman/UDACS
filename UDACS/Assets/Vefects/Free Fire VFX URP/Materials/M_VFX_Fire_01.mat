@@ -9,8 +9,6 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: M_VFX_Fire_01
   m_Shader: {fileID: 4800000, guid: b8a99704b1204314e816971e63a2a521, type: 3}
-  m_Parent: {fileID: 0}
-  m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 0
@@ -22,7 +20,6 @@ Material:
   disabledShaderPasses:
   - DistortionVectors
   - TransparentBackface
-  m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
@@ -51,11 +48,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Noise_01_Texture:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: f1b6b10620016be45b38159cac55e09b, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Noise_02_Texture:
-        m_Texture: {fileID: 2800000, guid: 48dc7bc18268b924c8348d314decc5da, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Texture:
@@ -130,7 +127,6 @@ Material:
     - _Power: 1
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _ReceiveShadows: 1
     - _ReceivesSSR: 0
     - _RenderQueueType: 4
     - _RequireSplitLighting: 0
@@ -189,4 +185,3 @@ Material:
     - _Noise_02_Scale: {r: 1, g: 1, b: 0, a: 0}
     - _Noise_02_Speed: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
-  m_AllowLocking: 1

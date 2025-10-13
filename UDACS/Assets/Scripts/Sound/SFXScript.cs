@@ -5,14 +5,21 @@ public class SFXScript : MonoBehaviour
 {
     public bool isDrone = false;
     public AudioClip explosionSound;
+    public Material fireMaterial;
     float fireDuration = 5f;
     public float fireSize = 5f;
     public bool hasExploded = false;
     private AudioSource audioSource;
-    public Material fireMaterial;
+    public static Material SharedFireMaterial;
     void Awake()
     {
         audioSource = gameObject.AddComponent<AudioSource>();
+        if (fireMaterial != null)
+            SharedFireMaterial = fireMaterial;
+        else if (SharedFireMaterial != null)
+            fireMaterial = SharedFireMaterial;
+        else
+            Debug.LogWarning("Fire material not assigned in SFXScript.");
     }
 
     public void Explode()
@@ -30,6 +37,7 @@ public class SFXScript : MonoBehaviour
         GameObject fireEffect = new GameObject("FireEffect");
         fireEffect.transform.position = pos;
         fireEffect.AddComponent<CoroutineRunner>().StartCoroutine(SpawnFire(pos, fireEffect));
+
         GameObject explosionEffect = new GameObject("ExplosionEffect");
         explosionEffect.transform.position = pos;
         explosionEffect.AddComponent<CoroutineRunner>().StartCoroutine(SpawnExplosionEffect(pos,explosionEffect));
@@ -70,13 +78,13 @@ public class SFXScript : MonoBehaviour
     private IEnumerator SpawnFire(Vector3 position, GameObject fire)
     {
         fire.transform.position = position;
-        var ps = fire.AddComponent<ParticleSystem>();
+        ParticleSystem ps = fire.AddComponent<ParticleSystem>();
 
-        var psRenderer = fire.GetComponent<ParticleSystemRenderer>();
+        ParticleSystemRenderer psRenderer = fire.GetComponent<ParticleSystemRenderer>();
         psRenderer.material = fireMaterial;
         psRenderer.renderMode = ParticleSystemRenderMode.Billboard;
 
-        var main = ps.main;
+        ParticleSystem.MainModule main = ps.main;
         main.playOnAwake = false;
         main.loop = false;
         main.startLifetime = 5f;
