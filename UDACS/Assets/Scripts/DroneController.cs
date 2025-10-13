@@ -35,7 +35,7 @@ public class DroneController : MonoBehaviour
     float[] turnAcceleration = { 7f, 15f, 2000f };
     float[] maxTiltAngle = { 5f, 15f }; // Normal & Sport max roll
 
-    float[] acceleration = { 40f, 80f, 150f };
+    float[] acceleration = { 40f, 80f, 200f };
     float[] maxHorizontalMoveSpeed = { 9f, 17f };
     float[] maxVerticalMoveSpeed = { 6f, 9f, 55f };
 

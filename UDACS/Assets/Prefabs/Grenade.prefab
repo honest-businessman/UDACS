@@ -146,7 +146,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 081b219ba9f6b2f4b9d1d737e37eb73e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  radius: 40
+  radius: 10
   force: 200
 --- !u!114 &3577665077545296048
 MonoBehaviour:
@@ -162,5 +162,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isDrone: 0
   explosionSound: {fileID: 8300000, guid: bf119238edb04e142b3374cace8cdd6b, type: 3}
-  fireDuration: 2
   fireSize: 3
+  hasExploded: 0
+  fireMaterial: {fileID: 0}
