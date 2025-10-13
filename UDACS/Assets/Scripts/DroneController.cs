@@ -1,4 +1,3 @@
-using sc.terrain.proceduralpainter;
 using TMPro;
 using UnityEngine;
 
@@ -32,8 +31,8 @@ public class DroneController : MonoBehaviour
     float modeAxis;
 
     float[] maxYawRate = { 100f, 200f, 250f }; // Degrees/s
-    float[] maxRollPitchRate = { 5f, 10f, 340f };
-    float[] turnAcceleration = { 7f, 15f, 300f };
+    float[] maxRollPitchRate = { 5f, 10f, 1500f };
+    float[] turnAcceleration = { 7f, 15f, 2000f };
     float[] maxTiltAngle = { 5f, 15f }; // Normal & Sport max roll
 
     float[] acceleration = { 40f, 80f, 150f };
