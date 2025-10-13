@@ -16,6 +16,7 @@ public class PlayerInteraction : MonoBehaviour
     public static InputAction StartStop;
     public static InputAction CameraAdjust;
     public static InputAction Deploy;
+    public static InputAction CameraToggle;
 
     void Start()
     {
@@ -38,5 +39,6 @@ public class PlayerInteraction : MonoBehaviour
         StartStop = playerInput.actions["Start Stop"];
         CameraAdjust = playerInput.actions["CameraAdjust"];
         Deploy = playerInput.actions["Deploy"];
+        CameraToggle = playerInput.actions["CameraToggle"];
     }
 }

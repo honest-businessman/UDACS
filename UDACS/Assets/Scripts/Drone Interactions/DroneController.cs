@@ -1,6 +1,12 @@
 using TMPro;
 using UnityEngine;
 
+/* DroneController Accessible Variables
+ * this.invertRightStick
+ * Allows you to toggle it true to invert the right control stick for weird people
+ * 
+*/ 
+
 [RequireComponent (typeof(Rigidbody))]
 public class DroneController : MonoBehaviour
 {
@@ -11,6 +17,7 @@ public class DroneController : MonoBehaviour
     public TMP_Text modeText;
 
     public bool droneOn = false;
+    public bool invertRightStick = false;
 
     public float deadzone = 0.1f;
     public enum Mode
@@ -32,7 +39,6 @@ public class DroneController : MonoBehaviour
 
     float[] maxYawRate = { 100f, 200f, 400f }; // Degrees/s
     float[] maxRollPitchRate = { 5f, 10f, 500f };
-    float[] turnAcceleration = { 7f, 15f, 2000f };
     float[] maxTiltAngle = { 5f, 15f }; // Normal & Sport max roll
 
     float[] acceleration = { 40f, 80f, 200f };
@@ -41,8 +47,12 @@ public class DroneController : MonoBehaviour
 
     float minHeight = 1f; // minimum height above ground
 
+    public float upwardCameraPosition = 45f;
+
     float cameraOffset = 0f;
+    byte cameraPosition = 0;
     float flightPauseRTHInput;
+    bool manualCameraControl = false;
     float rthTimer;
     bool rthPressed;
 
@@ -185,7 +195,7 @@ public class DroneController : MonoBehaviour
             case 1f:
                 if (modePushed != true)
                 {
-                    mode = (Mode)Mathf.Clamp((int)(mode + 1), 0, 2);
+                    mode = (Mode)Mathf.Clamp((int)(mode + 1), 0, rthTriggered ? 1 : 2);
                     modePushed = true;
                 }
                 break;
@@ -195,13 +205,33 @@ public class DroneController : MonoBehaviour
         char[] modeCharacters = { 'N', 'S', 'M' };
         modeText.text = modeCharacters[(int)mode].ToString();
 
+        float cameraAdjust = PlayerInteraction.CameraAdjust.ReadValue<float>();
+        float[] cameraPositions = { 0, 90f, upwardCameraPosition };
+        float[] stabilizedCameraPositions = { 0, 90f, upwardCameraPosition };
+
+        // Toggle camera position
+        if (PlayerInteraction.CameraToggle.triggered)
+        {
+            cameraPosition = (byte)((cameraPosition + 1) % 3);
+            manualCameraControl = false;
+            cameraOffset = cameraPositions[cameraPosition];
+        }
+
+        if ((cameraAdjust != 0 || modeAxis != 0) && manualCameraControl == false && mode == Mode.Manual)
+        {
+            cameraPosition = 0;
+            manualCameraControl = true;
+        }
+
+        cameraOffset = Mathf.Clamp(cameraOffset + PlayerInteraction.CameraAdjust.ReadValue<float>() / 4f, -90, 90);
+
         // Stabilize camera
         Vector3 mainCameraTransform = Camera.main.transform.localEulerAngles;
         Camera.main.transform.localEulerAngles = (mode == Mode.Manual)
-            ? new Vector3(mainCameraTransform.x + Mathf.DeltaAngle(mainCameraTransform.x, cameraOffset = Mathf.Clamp(cameraOffset + PlayerInteraction.CameraAdjust.ReadValue<float>() / 4f, -90, 90)), mainCameraTransform.y, mainCameraTransform.z)
+            ? new Vector3(mainCameraTransform.x + Mathf.DeltaAngle(mainCameraTransform.x, cameraOffset), mainCameraTransform.y, mainCameraTransform.z)
             : (Mathf.Abs(Mathf.DeltaAngle(mainCameraTransform.x, -transform.eulerAngles.x)) < 2f)
-                ? new Vector3(-transform.eulerAngles.x, mainCameraTransform.y, mainCameraTransform.z)
-                : new Vector3(mainCameraTransform.x + Mathf.DeltaAngle(mainCameraTransform.x, -transform.eulerAngles.x) * Time.deltaTime * 20f, mainCameraTransform.y, mainCameraTransform.z);
+                ? new Vector3(-transform.eulerAngles.x + stabilizedCameraPositions[cameraPosition], mainCameraTransform.y, mainCameraTransform.z)
+                : new Vector3(mainCameraTransform.x + Mathf.DeltaAngle(mainCameraTransform.x, -transform.eulerAngles.x + stabilizedCameraPositions[cameraPosition]) * Time.deltaTime * 20f, mainCameraTransform.y, mainCameraTransform.z);
     }
 
     Quaternion? levelRotation = null;
@@ -233,11 +263,21 @@ public class DroneController : MonoBehaviour
         );
 
         // Apply deadzones
-        if (!rthTriggered && droneOn && !flightPause)
+        if (droneOn && !rthTriggered)
         {
-            leftStick = deadzoneLeftStick;
-            rightStick = deadzoneRightStick;
+            if (!flightPause)
+            {
+                leftStick = deadzoneLeftStick;
+                rightStick = deadzoneRightStick;
+            }
+            else
+            {
+                leftStick = Vector2.zero;
+                rightStick = Vector2.zero;
+            }
         }
+
+        if (invertRightStick) rightStick = -rightStick;
 
         // Smooth both sticks over time to remove jitter
         leftStick = Vector2.Lerp(previousLeftStick, leftStick, Time.deltaTime * 10f);
@@ -317,7 +357,7 @@ public class DroneController : MonoBehaviour
 
                 // Smoothly move toward target angular velocity in world space
                 rigidBody.angularVelocity = transform.TransformDirection(//Vector3.MoveTowards(
-                                                                         //transform.InverseTransformDirection(rigidBody.angularVelocity),
+                    //transform.InverseTransformDirection(rigidBody.angularVelocity),
                     new Vector3(rightStick.y * maxRollPitchRate[modeId], leftStick.x * maxYawRate[modeId], -rightStick.x * maxRollPitchRate[modeId]) * Mathf.Deg2Rad//,
                     //turnAcceleration[modeId] * Mathf.Deg2Rad * Time.fixedDeltaTime
                 /*)*/);
@@ -359,7 +399,6 @@ public class DroneController : MonoBehaviour
 
     void RTH()
     {
-        if (mode == Mode.Manual) mode = Mode.Normal;
         // Rotate to home
         leftStick.x = Mathf.Abs(Mathf.DeltaAngle(transform.eulerAngles.y, Mathf.Atan2(startPosition.x - transform.position.x, startPosition.z - transform.position.z) * Mathf.Rad2Deg)) < 2f
             ? 0f
