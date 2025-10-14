@@ -46,6 +46,7 @@ GameObject:
   - component: {fileID: 6455074714325851687}
   - component: {fileID: 6540152643690784342}
   - component: {fileID: 5882735885803331499}
+  - component: {fileID: 6427551154028588153}
   m_Layer: 0
   m_Name: TerrainChunk_3
   m_TagString: Untagged
@@ -128,6 +129,19 @@ TerrainCollider:
   serializedVersion: 2
   m_TerrainData: {fileID: 15600000, guid: 0c299d6c9e830aa4d9ef9301ea8ec433, type: 2}
   m_EnableTreeColliders: 1
+--- !u!114 &6427551154028588153
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3710703330425953080}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1db11228c23499742957c29c86d7afba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  terrain: {fileID: 6540152643690784342}
 --- !u!1 &4537031110543143036
 GameObject:
   m_ObjectHideFlags: 0
@@ -139,6 +153,7 @@ GameObject:
   - component: {fileID: 8411541175329007259}
   - component: {fileID: 8205185472033321185}
   - component: {fileID: 7696077903577726895}
+  - component: {fileID: 7403314907006753756}
   m_Layer: 0
   m_Name: TerrainChunk_1
   m_TagString: Untagged
@@ -221,6 +236,19 @@ TerrainCollider:
   serializedVersion: 2
   m_TerrainData: {fileID: 15600000, guid: 1b49923812742c241af8fabb84e36acc, type: 2}
   m_EnableTreeColliders: 1
+--- !u!114 &7403314907006753756
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4537031110543143036}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1db11228c23499742957c29c86d7afba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  terrain: {fileID: 8205185472033321185}
 --- !u!1 &4991268600894747840
 GameObject:
   m_ObjectHideFlags: 0
@@ -361,8 +389,12 @@ MonoBehaviour:
   - enabled: 1
     layer: {fileID: 8574412962073106934, guid: 69debc15b685aef4aa7bb2783ddd8a2b, type: 2}
     modifierStack: []
-  autoRepaint: 0
-  terrainListeners: []
+  autoRepaint: 1
+  terrainListeners:
+  - {fileID: 7403314907006753756}
+  - {fileID: 8140007681451355782}
+  - {fileID: 7646060844220737587}
+  - {fileID: 6427551154028588153}
   bounds:
     m_Center: {x: 0, y: 258.71924, z: 0}
     m_Extent: {x: 1024, y: 186.18867, z: 1024}
@@ -378,6 +410,7 @@ GameObject:
   - component: {fileID: 5235945070709213233}
   - component: {fileID: 3545494873407922658}
   - component: {fileID: 8421507349157347322}
+  - component: {fileID: 8140007681451355782}
   m_Layer: 0
   m_Name: TerrainChunk_2
   m_TagString: Untagged
@@ -460,6 +493,19 @@ TerrainCollider:
   serializedVersion: 2
   m_TerrainData: {fileID: 15600000, guid: 06b03729d66083744a7ca73245bd3cdb, type: 2}
   m_EnableTreeColliders: 1
+--- !u!114 &8140007681451355782
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7116818580235213451}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1db11228c23499742957c29c86d7afba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  terrain: {fileID: 3545494873407922658}
 --- !u!1 &7675316786771615196
 GameObject:
   m_ObjectHideFlags: 0
@@ -581,6 +627,7 @@ GameObject:
   - component: {fileID: 1012257207970106305}
   - component: {fileID: 4565061607445247334}
   - component: {fileID: 1006812954892162161}
+  - component: {fileID: 7646060844220737587}
   m_Layer: 0
   m_Name: TerrainChunk_0
   m_TagString: Untagged
@@ -663,6 +710,19 @@ TerrainCollider:
   serializedVersion: 2
   m_TerrainData: {fileID: 15600000, guid: 80c2198814d1a694f9044e4f5a861c2b, type: 2}
   m_EnableTreeColliders: 1
+--- !u!114 &7646060844220737587
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7692834590934778164}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1db11228c23499742957c29c86d7afba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  terrain: {fileID: 4565061607445247334}
 --- !u!1 &8940410780129314366
 GameObject:
   m_ObjectHideFlags: 0
