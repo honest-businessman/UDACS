@@ -1,3 +1,4 @@
+using System.Linq;
 using TMPro;
 using UnityEngine;
 
@@ -115,42 +116,45 @@ public class DroneController : MonoBehaviour
         }
 
         // Initialize Controls
-        float flightPauseRTHInput = PlayerInteraction.FlightPauseRTH.ReadValue<float>();
+        float? flightPauseRTHInput = PlayerInteraction.FlightPauseRTH.ReadValue<float>();
 
-        if (PlayerInteraction.ControlSet == "Gamepad")
+        if (flightPauseRTHInput.HasValue)
         {
-            // Pause and return to home input handling
-            if (flightPauseRTHInput == 1)
+            if (PlayerInteraction.ControlSet == "Gamepad")
             {
-                if (rthTimer > 1f)
+                // Pause and return to home input handling
+                if (flightPauseRTHInput.Value == 1)
                 {
+                    if (rthTimer > 1f)
+                    {
+                        rthPressed = false;
+                        rthTimer = 0f;
+                        // Set mode to normal for control
+                        mode = Mode.Normal;
+                        rthTriggered = true;
+                    }
+                    else if (!rthTriggered)
+                    {
+                        rthPressed = true;
+                        rthTimer += Time.deltaTime;
+                    }
+                }
+                else if (rthPressed)
+                {
+                    FlightPause();
+                    rthTriggered = false;
                     rthPressed = false;
-                    rthTimer = 0f;
-                    // Set mode to normal for control
+                }
+                else rthTimer = 0;
+            }
+            else
+            {
+                if (flightPauseRTHInput.Value == 1) FlightPause();
+                else if (flightPauseRTHInput.Value == -1)
+                {
                     mode = Mode.Normal;
                     rthTriggered = true;
                 }
-                else if (!rthTriggered)
-                {
-                    rthPressed = true;
-                    rthTimer += Time.deltaTime;
-                }
-            }
-            else if (rthPressed)
-            {
-                FlightPause();
-                rthTriggered = false;
-                rthPressed = false;
-            }
-            else rthTimer = 0;
-        }
-        else
-        {
-            if (flightPauseRTHInput == 1) FlightPause();
-            else if (flightPauseRTHInput == -1)
-            {
-                mode = Mode.Normal;
-                rthTriggered = true;
             }
         }
 
@@ -370,7 +374,7 @@ public class DroneController : MonoBehaviour
 
         RaycastHit[] hits = Physics.RaycastAll(transform.position, Vector3.down, 999f);
         heightText.text = "H: XXXXm";
-        foreach (RaycastHit hit in hits)
+        foreach (RaycastHit hit in hits.OrderBy(h => h.distance))
         {
             if (!hit.collider.isTrigger)
             {
@@ -399,7 +403,7 @@ public class DroneController : MonoBehaviour
 
         // Fly to home and hold alt
         float horizontalDistance = Vector2.Distance(new Vector2(startPosition.x, startPosition.z), new Vector2(transform.position.x, transform.position.z));
-        leftStick.y = Mathf.Clamp(((horizontalDistance > 1.0f ? 50f : 1f) - distanceFromGround) / 3f, -1f, 1f);
+        leftStick.y = Mathf.Clamp(((horizontalDistance > 1.0f ? 50f : 1f) - distanceFromGround) / 3f, -1f, 10f);
         rightStick.y = Mathf.Clamp(horizontalDistance / 10, 0f, 1f);
 
         // End condition
