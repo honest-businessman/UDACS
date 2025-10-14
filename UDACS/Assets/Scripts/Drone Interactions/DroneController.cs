@@ -2,9 +2,14 @@ using TMPro;
 using UnityEngine;
 
 /* DroneController Accessible Variables
- * this.invertRightStick
+ * this.invertRightStick (bool)
  * Allows you to toggle it true to invert the right control stick for weird people
- * 
+ * this.flightPause (bool)
+ * Will tell whether the flight mode is paused
+ * this.upwardCameraPosition
+ * Used to set the preset angle for the camera angle toggle's upwards setting
+ * this.deadzone
+ * Controller local deadzone
 */ 
 
 [RequireComponent (typeof(Rigidbody))]
@@ -17,10 +22,14 @@ public class DroneController : MonoBehaviour
     public TMP_Text modeText;
 
     public bool droneOn = false;
-    public bool invertRightStick = false;
+    public bool invertRightStick = false; // Inverts the right stick (weird)
+    public bool flightPause; // Tracks whether or not flight is paused
 
-    public float deadzone = 0.1f;
-    public enum Mode
+    [Range(5f, 90f)]
+    public float upwardCameraPosition = 45f; // Rotation of the camera in the preset upwards position
+    [Range(0f, 1f)]
+    public float deadzone = 0.1f; // Controller deadzone on both axis
+    public enum Mode // Mode for the drone
     {
         Normal,
         Sport,
@@ -28,50 +37,52 @@ public class DroneController : MonoBehaviour
     }
 
     [SerializeField]
-    Mode mode = Mode.Normal;
+    Mode mode = Mode.Normal; // Current Flight Mode
 
-    Rigidbody rigidBody;
-    Vector3 startPosition;
+    Rigidbody rigidBody; // Current rigidbody of the drone
+    Camera mainCam; // Gathered to prevent Camera.main being called in Update
 
-    Vector2 leftStick;
-    Vector2 rightStick;
-    float modeAxis;
+    Vector3 startPosition; // Tracked start position for RTH
 
+    Vector2 rightStick; // Utilized processed Right Stick output
+    Vector2 leftStick; // Utilized processed Left Stick output
+
+    // Normal, Sport, Manual
     float[] maxYawRate = { 100f, 200f, 400f }; // Degrees/s
     float[] maxRollPitchRate = { 5f, 10f, 500f };
     float[] maxTiltAngle = { 5f, 15f }; // Normal & Sport max roll
 
-    float[] acceleration = { 40f, 80f, 200f };
-    float[] maxHorizontalMoveSpeed = { 9f, 17f };
-    float[] maxVerticalMoveSpeed = { 6f, 9f, 55f };
+    float[] acceleration = { 40f, 80f, 240f }; // Upwards accell
+    float[] maxHorizontalMoveSpeed = { 9f, 17f }; // Sport/Normal Modes
+    float[] maxVerticalMoveSpeed = { 6f, 9f, 55f }; // Max vertical move speed
 
-    float minHeight = 1f; // minimum height above ground
+    float? levellingYawRotation = null; // Tracks the yaw rotation before levelling from manual to Sport/Normal
 
-    public float upwardCameraPosition = 45f;
+    float levellingProgress = 0f; // Progress of levelling after mode switch from manual
+    float cameraOffset = 0f; // Manual mode camera offset from level
+    float minHeight = 1f; // Minimum height above ground
+    float rthTimer = 0f; // Times between press and release of the RTH control on gamepad
 
-    float cameraOffset = 0f;
-    byte cameraPosition = 0;
-    float flightPauseRTHInput;
-    bool manualCameraControl = false;
-    float rthTimer;
-    bool rthPressed;
+    float distanceFromGround; // Keeps the distance from the ground that is raycasted
+
+    byte cameraPosition = 0; // Keeps camera toggle position
+    byte sequence = 0; // Startup sequence tracking
+
+    bool manualCameraControl; // Tracks whether the camera is controlled manually or set position
+    bool rthTriggered; // Tracks whether the return to home feature is currently being utilized
+    bool modePushed; // Tracks if the mode toggle is in a pushed state
+    bool rthPressed; // Tracks if the rth input is in a pushed state
+    bool wasManual; // Used to level the drone after a switch from manual
 
     void Start()
     {
         rigidBody = GetComponent<Rigidbody>();
-        rthTimer = 0;
         startPosition = transform.position;
+        mainCam = Camera.main;
     }
-
-    bool modePushed = false;
-    bool rthTriggered;
-
-    bool flightPause = false;
-
-    float previousPropellerSpeed = 0f;
-    bool pressedStartStop = false;
     void Update()
     {
+        // Drone init
         if (droneOn)
         {
             if (!Audio.instance.DroneSource.isPlaying)
@@ -93,21 +104,18 @@ public class DroneController : MonoBehaviour
                         Audio.instance.fastEngine.Play();
                         break;
                     case 2:
-                        float responsiveness = 5f;
-                        // Compute propeller intensity and smooth to avoid jitter
-                        float smoothPropellerSpeed = Mathf.Lerp(previousPropellerSpeed, Mathf.Clamp01(leftStick.magnitude + (rightStick.magnitude / 2f)), Time.deltaTime * responsiveness);
-                        previousPropellerSpeed = smoothPropellerSpeed;
+                        float propellerSpeed = Mathf.Clamp01(leftStick.magnitude + (rightStick.magnitude / 2f));
 
                         // Convert to decibels safely and apply to mixer
-                        Audio.instance.mixer.SetFloat("HighRPM", Mathf.Lerp(-60f, -30f, smoothPropellerSpeed));
-                        Audio.instance.mixer.SetFloat("IdleRPM", Mathf.Lerp(-50f, -30f, 1f - smoothPropellerSpeed));
+                        Audio.instance.mixer.SetFloat("HighRPM", Mathf.Lerp(-60f, -30f, propellerSpeed));
+                        Audio.instance.mixer.SetFloat("IdleRPM", Mathf.Lerp(-50f, -30f, 1f - propellerSpeed));
                         break;
                 }
             }
         }
 
         // Initialize Controls
-        flightPauseRTHInput = PlayerInteraction.FlightPauseRTH.ReadValue<float>();
+        float flightPauseRTHInput = PlayerInteraction.FlightPauseRTH.ReadValue<float>();
 
         if (PlayerInteraction.ControlSet == "Gamepad")
         {
@@ -146,9 +154,9 @@ public class DroneController : MonoBehaviour
             }
         }
 
-        if (PlayerInteraction.StartStop.ReadValue<float>() > 0.5f && !droneOn && !pressedStartStop)
+        // Turn the drone on/off quickly or slowly by mode
+        if (PlayerInteraction.StartStop.triggered && !droneOn)
         {
-            pressedStartStop = true;
             if (mode == Mode.Manual)
             {
                 droneOn = true;
@@ -159,14 +167,13 @@ public class DroneController : MonoBehaviour
                 droneOn = true;
             }
         }
-        else if (PlayerInteraction.StartStop.ReadValue<float>() > 0.5f && droneOn && mode == Mode.Manual && !pressedStartStop)
+        else if (PlayerInteraction.StartStop.triggered && droneOn && mode == Mode.Manual)
         {
-            pressedStartStop = true;
             sequence = 0;
             droneOn = false;
         }
-        else if (PlayerInteraction.StartStop.ReadValue<float>() < 0.1f) pressedStartStop = false;
 
+        // Disable other functions when the drone is off
         if (!droneOn)
         {
             flightPause = false;
@@ -180,9 +187,8 @@ public class DroneController : MonoBehaviour
             RTH();
         }
 
-        modeAxis = PlayerInteraction.ModeToggle.ReadValue<float>();
-
         // Mode toggle
+        float modeAxis = PlayerInteraction.ModeToggle.ReadValue<float>();
         switch (modeAxis)
         {
             case -1f:
@@ -202,12 +208,15 @@ public class DroneController : MonoBehaviour
             default: modePushed = false;
                 break;
         }
-        char[] modeCharacters = { 'N', 'S', 'M' };
-        modeText.text = modeCharacters[(int)mode].ToString();
 
+        // Set UI mode character
+        string[] modeCharacters = { "N", "S", "M" };
+        modeText.text = modeCharacters[(int)mode];
+
+        // Init camera adjustment setting from variables
         float cameraAdjust = PlayerInteraction.CameraAdjust.ReadValue<float>();
-        float[] cameraPositions = { 0, 90f, upwardCameraPosition };
-        float[] stabilizedCameraPositions = { 0, 90f, upwardCameraPosition };
+        float[] cameraPositions = { 0, 90f, -upwardCameraPosition };
+        float[] stabilizedCameraPositions = { 0, 90f, -upwardCameraPosition };
 
         // Toggle camera position
         if (PlayerInteraction.CameraToggle.triggered)
@@ -217,16 +226,18 @@ public class DroneController : MonoBehaviour
             cameraOffset = cameraPositions[cameraPosition];
         }
 
+        // Reset camera position when manual control used
         if ((cameraAdjust != 0 || modeAxis != 0) && manualCameraControl == false && mode == Mode.Manual)
         {
             cameraPosition = 0;
             manualCameraControl = true;
         }
 
+        // Update the camera's offset position by the manual inputs
         cameraOffset = Mathf.Clamp(cameraOffset + PlayerInteraction.CameraAdjust.ReadValue<float>() / 4f, -90, 90);
 
         // Stabilize camera
-        Vector3 mainCameraTransform = Camera.main.transform.localEulerAngles;
+        Vector3 mainCameraTransform = mainCam.transform.localEulerAngles;
         Camera.main.transform.localEulerAngles = (mode == Mode.Manual)
             ? new Vector3(mainCameraTransform.x + Mathf.DeltaAngle(mainCameraTransform.x, cameraOffset), mainCameraTransform.y, mainCameraTransform.z)
             : (Mathf.Abs(Mathf.DeltaAngle(mainCameraTransform.x, -transform.eulerAngles.x)) < 2f)
@@ -234,23 +245,12 @@ public class DroneController : MonoBehaviour
                 : new Vector3(mainCameraTransform.x + Mathf.DeltaAngle(mainCameraTransform.x, -transform.eulerAngles.x + stabilizedCameraPositions[cameraPosition]) * Time.deltaTime * 20f, mainCameraTransform.y, mainCameraTransform.z);
     }
 
-    Quaternion? levelRotation = null;
-    float levellingProgress = 0f;
-    bool wasManual;
-
-    float distanceFromGround;
-
-    byte sequence = 0;
-
-    Vector2 previousLeftStick;
-    Vector2 previousRightStick;
     private void FixedUpdate()
     {
         if (PlayerInteraction.LeftStick == null) return;
         // Initialize Stick Inputs
         Vector2 leftStickRaw = PlayerInteraction.LeftStick.ReadValue<Vector2>();
         Vector2 rightStickRaw = PlayerInteraction.RightStick.ReadValue<Vector2>();
-        float deadzone = 0.1f;
 
         // Apply deadzones
         Vector2 deadzoneLeftStick = new(
@@ -279,13 +279,6 @@ public class DroneController : MonoBehaviour
 
         if (invertRightStick) rightStick = -rightStick;
 
-        // Smooth both sticks over time to remove jitter
-        leftStick = Vector2.Lerp(previousLeftStick, leftStick, Time.deltaTime * 10f);
-        rightStick = Vector2.Lerp(previousRightStick, rightStick, Time.deltaTime * 10f);
-
-        previousLeftStick = leftStick;
-        previousRightStick = rightStick;
-
         // If inputs touched disable RTH
         if (deadzoneLeftStick != Vector2.zero || deadzoneRightStick != Vector2.zero) rthTriggered = false;
 
@@ -305,19 +298,19 @@ public class DroneController : MonoBehaviour
             if (wasManual && mode != Mode.Manual)
             {
                 rigidBody.angularVelocity = Vector3.zero;
-
-                levelRotation = Quaternion.Euler(0, rigidBody.rotation.eulerAngles.y, 0);
+                levellingYawRotation = rigidBody.rotation.eulerAngles.y;
                 levellingProgress = 0f;
                 wasManual = false;
             }
 
             // Level the drone at a set speed
-            if (levelRotation.HasValue)
+            if (levellingYawRotation.HasValue)
             {
+                Quaternion levelRotation = Quaternion.Euler(0, levellingYawRotation.Value, 0);
                 levellingProgress += Time.fixedDeltaTime / 3f;
-                rigidBody.MoveRotation(Quaternion.Slerp(rigidBody.rotation, levelRotation.Value, levellingProgress));
+                rigidBody.MoveRotation(Quaternion.Slerp(rigidBody.rotation, levelRotation, levellingProgress));
 
-                if (Quaternion.Angle(rigidBody.rotation, levelRotation.Value) < 0.1f) levelRotation = null;
+                if (Quaternion.Angle(rigidBody.rotation, levelRotation) < 0.1f) levellingYawRotation = null;
             }
             else if (mode == Mode.Normal || mode == Mode.Sport)
             {

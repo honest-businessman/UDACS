@@ -401,10 +401,6 @@ PrefabInstance:
       propertyPath: distanceFromHomeText
       value: 
       objectReference: {fileID: 1864527528}
-    - target: {fileID: 4687290433385738018, guid: 01f4f583b9d48c64db6845c15d8ba65d, type: 3}
-      propertyPath: fireMaterial
-      value: 
-      objectReference: {fileID: 2100000, guid: 8ae06bec34c22884ba2acfa17c229c65, type: 2}
     - target: {fileID: 7065669588379045375, guid: 01f4f583b9d48c64db6845c15d8ba65d, type: 3}
       propertyPath: m_Name
       value: Drone
