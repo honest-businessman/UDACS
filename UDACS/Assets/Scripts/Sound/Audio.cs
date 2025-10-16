@@ -1,7 +1,5 @@
 using UnityEngine;
 using UnityEngine.Audio;
-using UnityEngine.TextCore.LowLevel;
-
 public class Audio : MonoBehaviour
 {
     public static Audio instance;
@@ -35,7 +33,9 @@ public class Audio : MonoBehaviour
             return;
         }
         DroneSource.pitch = Dronepitch; //this controls the pitch of the drone sounds
-        DroneSource.PlayOneShot(clip);
+        DroneSource.clip = clip;
+        //DroneSource.PlayOneShot(clip);
+        DroneSource.Play();
     }
     public void PlayVoiceLine(string soundName) //call this function to play a voice line
     {
@@ -46,7 +46,8 @@ public class Audio : MonoBehaviour
             return;
         }
         VoiceLineSource.pitch = Voicepitch; //this controls the pitch of the voice lines
-        VoiceLineSource.PlayOneShot(clip);
+        VoiceLineSource.clip = clip;
+        VoiceLineSource.Play();
     }
     public void SetDroneVolume() //call this function to set the volume of the drone sounds
     {
