@@ -6,6 +6,6 @@ public class FollowDrone : MonoBehaviour
     void FixedUpdate()
     {
         transform.position = new Vector3(droneTransform.position.x, altitude, droneTransform.position.z);
-        transform.eulerAngles = new Vector3(0, droneTransform.eulerAngles.y, 0);
+        transform.eulerAngles = new Vector3(90, droneTransform.eulerAngles.y, 0);
     }
 }
