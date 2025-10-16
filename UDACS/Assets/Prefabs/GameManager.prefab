@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6505475908301621154}
   - component: {fileID: 2790902626583307412}
   - component: {fileID: 8565811455192857164}
+  - component: {fileID: 6300862052046118370}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -77,3 +78,18 @@ MonoBehaviour:
   m_DefaultActionMap: Drone
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &6300862052046118370
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 28405690123613456}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ba4c0f165b02a644b8f3441290eeaae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Paused: 0
+  pauseCanvas: {fileID: 0}
+  pauseWhenOpen: 1
