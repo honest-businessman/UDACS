@@ -1,11 +1,14 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-public class UISettings : MonoBehaviour
+public class UIManager: MonoBehaviour
 {
     public PausePlay pausePlayScript;
     public DayNight dayNightScript;
     public GameObject droneObject;
+    public ThrowObject loadingSystem;
+    public GameObject grenadeUI;
+
     DroneController droneController;
     ThrowObject payloadSystem;
     void Start()
@@ -13,13 +16,13 @@ public class UISettings : MonoBehaviour
         droneController = droneObject.GetComponent<DroneController>();
         payloadSystem = droneController.GetComponent<ThrowObject>();
     }
-
-    void Update()
-    {
-        
-    }
+    void Update() => grenadeUI.SetActive(loadingSystem.loaded);
     public void ExitGame() => Application.Quit();
-    public void Respawn() => SceneManager.LoadScene("TerrainScene");
+    public void Respawn()
+    {
+        Time.timeScale = 1;
+        SceneManager.LoadScene("TerrainScene");
+    }
     public void MainMenu() => SceneManager.LoadScene("Main Menu");
     public void PauseWhilePaused(Toggle toggle) => pausePlayScript.pauseWhenOpen = toggle.isOn;
     public void InfiniteAmmo(Toggle toggle) => payloadSystem.requiresLoading = toggle.isOn;
