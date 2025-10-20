@@ -81,6 +81,8 @@ AudioMixerController:
     name: HighRPM
   - guid: eab4e89ead880e144b08e258b63c9353
     name: IdleRPM
+  - guid: 31d497c55bfb15045a51d4af6fe5a7da
+    name: MasterVolume
   m_AudioMixerGroupViews:
   - guids:
     - 2da6e2e565224054aae9b2746bff96ac
@@ -139,7 +141,7 @@ AudioMixerSnapshotController:
   m_FloatValues:
     6cd37b031596cc749adc57d1303e17a8: -20.1512
     b1b971140716f0744a41f55207008e88: 1
-    31d497c55bfb15045a51d4af6fe5a7da: 0.1355254
+    31d497c55bfb15045a51d4af6fe5a7da: 0
     eab4e89ead880e144b08e258b63c9353: 0
     c91d8e5f7a369bf41adafb572c6a74dc: 0
   m_TransitionOverrides: {}

@@ -11,7 +11,9 @@ GameObject:
   - component: {fileID: 6505475908301621154}
   - component: {fileID: 2790902626583307412}
   - component: {fileID: 8565811455192857164}
-  - component: {fileID: 6300862052046118370}
+  - component: {fileID: 8001015927418414207}
+  - component: {fileID: 8268925822178162124}
+  - component: {fileID: 1925881897264116433}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -78,7 +80,7 @@ MonoBehaviour:
   m_DefaultActionMap: Drone
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!114 &6300862052046118370
+--- !u!114 &8001015927418414207
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -93,3 +95,30 @@ MonoBehaviour:
   Paused: 0
   pauseCanvas: {fileID: 0}
   pauseWhenOpen: 1
+--- !u!114 &8268925822178162124
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 28405690123613456}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d29e5329f7ff5948a066a4a123f24bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pausePlayScript: {fileID: 0}
+  dayNightScript: {fileID: 0}
+  droneObject: {fileID: 0}
+--- !u!114 &1925881897264116433
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 28405690123613456}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd044cf79f6529d4d8b8abd0d3230cf8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
