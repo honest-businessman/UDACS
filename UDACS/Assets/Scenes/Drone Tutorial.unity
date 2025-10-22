@@ -1384,7 +1384,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!223 &329461782
 Canvas:
   m_ObjectHideFlags: 0
@@ -1838,6 +1838,7 @@ GameObject:
   - component: {fileID: 553109879}
   - component: {fileID: 553109878}
   - component: {fileID: 553109877}
+  - component: {fileID: 553109880}
   m_Layer: 5
   m_Name: Skip button
   m_TagString: Untagged
@@ -1908,7 +1909,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 553109878}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 553109880}
+        m_TargetAssemblyTypeName: ChangeScene, Assembly-CSharp
+        m_MethodName: LoadScene
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: TerrainScene
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &553109878
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1947,6 +1960,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 553109875}
   m_CullTransparentMesh: 1
+--- !u!114 &553109880
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 553109875}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 776ca6f51a8f2c04c97477e801cd30ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &563268375
 GameObject:
   m_ObjectHideFlags: 0
@@ -2040,7 +2065,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &655886530
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2145,6 +2170,7 @@ GameObject:
   - component: {fileID: 679216069}
   - component: {fileID: 679216068}
   - component: {fileID: 679216067}
+  - component: {fileID: 679216070}
   m_Layer: 5
   m_Name: Continue Button
   m_TagString: Untagged
@@ -2215,7 +2241,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 679216068}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 679216070}
+        m_TargetAssemblyTypeName: ChangeScene, Assembly-CSharp
+        m_MethodName: LoadScene
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: TerrainScene
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &679216068
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2254,6 +2292,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 679216065}
   m_CullTransparentMesh: 1
+--- !u!114 &679216070
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 679216065}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 776ca6f51a8f2c04c97477e801cd30ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &684692959
 GameObject:
   m_ObjectHideFlags: 0

@@ -107,9 +107,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d29e5329f7ff5948a066a4a123f24bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pausePlayScript: {fileID: 0}
+  isGameScene: 1
+  pauseWhilePausedToggle: {fileID: 0}
+  infiniteAmmoToggle: {fileID: 0}
+  invertRightStickToggle: {fileID: 0}
+  dayCycleToggle: {fileID: 0}
+  snapCameraAngleSlider: {fileID: 0}
+  deadzoneSlider: {fileID: 0}
+  volumeSlider: {fileID: 0}
+  pausePlayScript: {fileID: 8001015927418414207}
   dayNightScript: {fileID: 0}
   droneObject: {fileID: 0}
+  loadingSystem: {fileID: 0}
+  grenadeUI: {fileID: 0}
 --- !u!114 &1925881897264116433
 MonoBehaviour:
   m_ObjectHideFlags: 0
