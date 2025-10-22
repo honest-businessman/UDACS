@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class DWGDestroyer : MonoBehaviour
+public class GrenadeExplode : MonoBehaviour
 {
 
 	public float radius = 10f;
