@@ -8,3 +8,7 @@ Brick Destruction
 https://assetstore.unity.com/packages/3d/environments/destructible-wall-generator-18143
 Grenade Texture
 https://www.vecteezy.com/vector-art/16978118-grenade-icon-template-stock-vector-illustration
+Background Image for Settings Menu
+https://www.vecteezy.com/photo/26350465-tranquil-sunrise-over-majestic-mountain-range-and-sand-dunes-generated-by-ai
+Credits background Image
+https://wallpapercave.com/drones-wallpapers
