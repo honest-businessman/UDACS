@@ -6,8 +6,20 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
-    guid: 99c9720ab356a0642a771bea13969a05
+    path: Assets/Scenes/TerrainScene.unity
+    guid: 5eced7348cdc3714190236ba1fe3b10d
+  - enabled: 1
+    path: Assets/Scenes/Settings Scene.unity
+    guid: 03d0aa4282ff7ad4780ba17f4f3866e3
+  - enabled: 1
+    path: Assets/Scenes/Main Menu Scene.unity
+    guid: b159950d895716645aecdd15e459b85b
+  - enabled: 1
+    path: Assets/Scenes/Drone Tutorial.unity
+    guid: e21107a33117a2641ae460480edd5b61
+  - enabled: 1
+    path: Assets/Scenes/Credits.unity
+    guid: 7b32c3281a29d464c9cd8d3d136c0df3
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: b1bf793422d9f7547a276ed800b86c63, type: 2}
     com.unity.input.settings: {fileID: 11400000, guid: 6c61f0730f207df49a3540b2ddfde131, type: 2}

@@ -195,17 +195,41 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 109116620}
     - target: {fileID: 8268925822178162124, guid: 6b375b8f0775a5d41869c7b801398d44, type: 3}
+      propertyPath: volumeSlider
+      value: 
+      objectReference: {fileID: 1443912530}
+    - target: {fileID: 8268925822178162124, guid: 6b375b8f0775a5d41869c7b801398d44, type: 3}
       propertyPath: loadingSystem
       value: 
       objectReference: {fileID: 109116621}
+    - target: {fileID: 8268925822178162124, guid: 6b375b8f0775a5d41869c7b801398d44, type: 3}
+      propertyPath: dayCycleToggle
+      value: 
+      objectReference: {fileID: 34340639}
     - target: {fileID: 8268925822178162124, guid: 6b375b8f0775a5d41869c7b801398d44, type: 3}
       propertyPath: dayNightScript
       value: 
       objectReference: {fileID: 148441125}
     - target: {fileID: 8268925822178162124, guid: 6b375b8f0775a5d41869c7b801398d44, type: 3}
-      propertyPath: pausePlayScript
+      propertyPath: deadzoneSlider
       value: 
-      objectReference: {fileID: 2098121117}
+      objectReference: {fileID: 807620939}
+    - target: {fileID: 8268925822178162124, guid: 6b375b8f0775a5d41869c7b801398d44, type: 3}
+      propertyPath: infiniteAmmoToggle
+      value: 
+      objectReference: {fileID: 2135181751}
+    - target: {fileID: 8268925822178162124, guid: 6b375b8f0775a5d41869c7b801398d44, type: 3}
+      propertyPath: snapCameraAngleSlider
+      value: 
+      objectReference: {fileID: 536011786}
+    - target: {fileID: 8268925822178162124, guid: 6b375b8f0775a5d41869c7b801398d44, type: 3}
+      propertyPath: invertRightStickToggle
+      value: 
+      objectReference: {fileID: 1668495115}
+    - target: {fileID: 8268925822178162124, guid: 6b375b8f0775a5d41869c7b801398d44, type: 3}
+      propertyPath: pauseWhilePausedToggle
+      value: 
+      objectReference: {fileID: 1763972214}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -10361,7 +10385,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Content: {fileID: 126640419}
-  m_Horizontal: 1
+  m_Horizontal: 0
   m_Vertical: 1
   m_MovementType: 1
   m_Elasticity: 0.1
@@ -10881,17 +10905,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2d29e5329f7ff5948a066a4a123f24bf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &2098121117 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8001015927418414207, guid: 6b375b8f0775a5d41869c7b801398d44, type: 3}
-  m_PrefabInstance: {fileID: 24281197}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8ba4c0f165b02a644b8f3441290eeaae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &2124006981
