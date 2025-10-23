@@ -49,8 +49,8 @@ public class UIManager: MonoBehaviour
         if (isGameScene)
         {
             pausePlayScript.pauseWhenOpen = Settings.PauseWhilePaused;
+            pausePlayScript.SetTimeScale();
             payloadSystem.requiresLoading = Settings.InfiniteAmmo;
-            loadingSystem.loaded = Settings.InfiniteAmmo;
             droneController.invertRightStick = Settings.InvertRightStick;
             dayNightScript.dayLength = Settings.DayCycle ? DayLength.Overdrive : DayLength.None;
 
@@ -77,7 +77,11 @@ public class UIManager: MonoBehaviour
     public void PauseWhilePaused(Toggle toggle)
     {
         Settings.PauseWhilePaused = toggle.isOn;
-        if (isGameScene) pausePlayScript.pauseWhenOpen = toggle.isOn;
+        if (isGameScene)
+        {
+            pausePlayScript.pauseWhenOpen = toggle.isOn;
+            pausePlayScript.SetTimeScale();
+        }
     }
     public void InfiniteAmmo(Toggle toggle)
     {
@@ -85,7 +89,7 @@ public class UIManager: MonoBehaviour
         if (isGameScene)
         {
             payloadSystem.requiresLoading = toggle.isOn;
-            loadingSystem.loaded = toggle.isOn;
+            if (toggle.isOn) loadingSystem.loaded = true;
         }
     }
     public void InvertRightStick(Toggle toggle)

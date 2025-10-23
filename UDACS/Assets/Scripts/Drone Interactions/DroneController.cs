@@ -48,6 +48,9 @@ public class DroneController : MonoBehaviour
     Vector2 rightStick; // Utilized processed Right Stick output
     Vector2 leftStick; // Utilized processed Left Stick output
 
+    Vector2 leftStickRaw; // Raw Vector Inputs from inputSystem
+    Vector2 rightStickRaw;
+
     // Normal, Sport, Manual
     float[] maxYawRate = { 100f, 200f, 400f }; // Degrees/s
     float[] maxRollPitchRate = { 5f, 10f, 500f };
@@ -159,7 +162,7 @@ public class DroneController : MonoBehaviour
         }
 
         // Turn the drone on/off quickly or slowly by mode
-        if (PlayerInteraction.StartStop.triggered && !droneOn)
+        if ((PlayerInteraction.StartStop.triggered || (leftStickRaw.y < -0.6f && rightStickRaw.y < -0.6f)) && !droneOn)
         {
             if (mode == Mode.Manual)
             {
@@ -253,8 +256,8 @@ public class DroneController : MonoBehaviour
     {
         if (PlayerInteraction.LeftStick == null) return;
         // Initialize Stick Inputs
-        Vector2 leftStickRaw = PlayerInteraction.LeftStick.ReadValue<Vector2>();
-        Vector2 rightStickRaw = PlayerInteraction.RightStick.ReadValue<Vector2>();
+        leftStickRaw = PlayerInteraction.LeftStick.ReadValue<Vector2>();
+        rightStickRaw = PlayerInteraction.RightStick.ReadValue<Vector2>();
 
         // Apply deadzones
         Vector2 deadzoneLeftStick = new(

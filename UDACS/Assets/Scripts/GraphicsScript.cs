@@ -1,11 +1,17 @@
 using UnityEngine;
-public class GraphicsScript : MonoBehaviour
+public static class GraphicsScript
 {
-    void Start()
+    static bool initRun;
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+    static void Init()
     {
-        Application.targetFrameRate = 60;
-        Screen.fullScreenMode = FullScreenMode.FullScreenWindow;
+        if (!initRun)
+        {
+            initRun = true;
+            Application.targetFrameRate = 60;
+            Screen.fullScreenMode = FullScreenMode.FullScreenWindow;
+        }
     }
-    public void UpdateFpsLock(int fps) => Application.targetFrameRate = fps;
-    public void ChangeScreenMode() => Screen.fullScreenMode = (FullScreenMode)(((int)Screen.fullScreenMode + 1) % 4);
+    public static void UpdateFpsLock(int fps) => Application.targetFrameRate = fps;
+    public static void ChangeScreenMode() => Screen.fullScreenMode = (FullScreenMode)(((int)Screen.fullScreenMode + 1) % 4);
 }

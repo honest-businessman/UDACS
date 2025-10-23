@@ -1,3 +1,5 @@
+using UnityEngine;
+
 public static class Settings
 {
     public static bool InfiniteAmmo { get; set; }
@@ -7,14 +9,21 @@ public static class Settings
     public static byte SnapCameraAngle { get; set; }
     public static float Deadzone { get; set; }
     public static byte Volume { get; set; }
-    static Settings()
+
+    static bool initRun;
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+    static void Init()
     {
-        InfiniteAmmo = false;
-        PauseWhilePaused = true;
-        InvertRightStick = false;
-        DayCycle = false;
-        SnapCameraAngle = 45;
-        Deadzone = 0.1f;
-        Volume = 80;
+        if (!initRun)
+        {
+            initRun = true;
+            InfiniteAmmo = false;
+            PauseWhilePaused = true;
+            InvertRightStick = false;
+            DayCycle = false;
+            SnapCameraAngle = 45;
+            Deadzone = 0.1f;
+            Volume = 80;
+        }
     }
 }

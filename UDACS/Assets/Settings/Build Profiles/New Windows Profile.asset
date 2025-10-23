@@ -10,16 +10,26 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 15003, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: Run Profile
+  m_Name: New Windows Profile
   m_EditorClassIdentifier: 
   m_AssetVersion: 1
   m_BuildTarget: 19
   m_Subtarget: 2
   m_PlatformId: 4e3c793746204150860bf175a9a41a05
   m_PlatformBuildProfile:
-    rid: 869256943525167157
-  m_OverrideGlobalSceneList: 0
-  m_Scenes: []
+    rid: 3292570558036705345
+  m_OverrideGlobalSceneList: 1
+  m_Scenes:
+  - m_enabled: 1
+    m_path: Assets/Scenes/Main Menu Scene.unity
+  - m_enabled: 1
+    m_path: Assets/Scenes/Settings scene.unity
+  - m_enabled: 1
+    m_path: Assets/Scenes/TerrainScene.unity
+  - m_enabled: 1
+    m_path: Assets/Scenes/Drone Tutorial.unity
+  - m_enabled: 1
+    m_path: Assets/Scenes/Credits.unity
   m_ScriptingDefines: []
   m_PlayerSettingsYaml:
     m_Settings:
@@ -34,16 +44,17 @@ MonoBehaviour:
     - line: '|   targetDevice: 2'
     - line: '|   useOnDemandResources: 0'
     - line: '|   accelerometerFrequency: 60'
-    - line: '|   companyName: UDACS Team'
+    - line: '|   companyName: DAMMP'
     - line: '|   productName: UDACS'
     - line: '|   defaultCursor: {instanceID: 0}'
     - line: '|   cursorHotspot: {x: 0, y: 0}'
-    - line: '|   m_SplashScreenBackgroundColor: {r: 0.8, g: 0.8, b: 0.8, a: 1}'
+    - line: '|   m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b:
+        0.1254902, a: 1}'
     - line: '|   m_ShowUnitySplashScreen: 1'
     - line: '|   m_ShowUnitySplashLogo: 0'
     - line: '|   m_SplashScreenOverlayOpacity: 1'
     - line: '|   m_SplashScreenAnimation: 1'
-    - line: '|   m_SplashScreenLogoStyle: 0'
+    - line: '|   m_SplashScreenLogoStyle: 1'
     - line: '|   m_SplashScreenDrawMode: 0'
     - line: '|   m_SplashScreenBackgroundAnimationZoom: 1'
     - line: '|   m_SplashScreenLogoAnimationZoom: 1'
@@ -65,8 +76,7 @@ MonoBehaviour:
     - line: '|   - logo: {fileID: 21300000, guid: b8773e25a7eb7ed48b4dca914975ae46,
         type: 3}'
     - line: '|     duration: 2'
-    - line: '|   m_VirtualRealitySplashScreen: {fileID: 2800000, guid: b8773e25a7eb7ed48b4dca914975ae46,
-        type: 3}'
+    - line: '|   m_VirtualRealitySplashScreen: {instanceID: 0}'
     - line: '|   m_HolographicTrackingLossScreen: {instanceID: 0}'
     - line: '|   defaultScreenWidth: 1024'
     - line: '|   defaultScreenHeight: 768'
@@ -166,7 +176,7 @@ MonoBehaviour:
     - line: '|   loadStoreDebugModeEnabled: 0'
     - line: '|   visionOSBundleVersion: 1.0'
     - line: '|   tvOSBundleVersion: 1.0'
-    - line: '|   bundleVersion: 0.1.0'
+    - line: '|   bundleVersion: 0.4.0'
     - line: '|   preloadedAssets: []'
     - line: '|   metroInputSource: 0'
     - line: '|   wsaTransparentSwapchain: 0'
@@ -176,7 +186,7 @@ MonoBehaviour:
     - line: '|   vrSettings:'
     - line: '|     enable360StereoCapture: 0'
     - line: '|   isWsaHolographicRemotingEnabled: 0'
-    - line: '|   enableFrameTimingStats: 1'
+    - line: '|   enableFrameTimingStats: 0'
     - line: '|   enableOpenGLProfilerGPURecorders: 1'
     - line: '|   allowHDRDisplaySupport: 1'
     - line: '|   useHDRDisplay: 1'
@@ -851,13 +861,24 @@ MonoBehaviour:
     - line: '|   webGLCloseOnQuit: 0'
     - line: '|   webWasm2023: 0'
     - line: '|   scriptingDefineSymbols:'
-    - line: '|     Android: USE_INPUT_SYSTEM_POSE_CONTROL;USE_STICK_CONTROL_THUMBSTICKS'
-    - line: '|     Standalone: USE_INPUT_SYSTEM_POSE_CONTROL;USE_STICK_CONTROL_THUMBSTICKS'
-    - line: '|     Windows Store Apps: USE_INPUT_SYSTEM_POSE_CONTROL;USE_STICK_CONTROL_THUMBSTICKS'
+    - line: '|     Android: UNITY_POST_PROCESSING_STACK_V2'
+    - line: '|     EmbeddedLinux: UNITY_POST_PROCESSING_STACK_V2'
+    - line: '|     GameCoreXboxOne: UNITY_POST_PROCESSING_STACK_V2'
+    - line: '|     Nintendo Switch: UNITY_POST_PROCESSING_STACK_V2'
+    - line: '|     PS4: UNITY_POST_PROCESSING_STACK_V2'
+    - line: '|     PS5: UNITY_POST_PROCESSING_STACK_V2'
+    - line: '|     QNX: UNITY_POST_PROCESSING_STACK_V2'
+    - line: '|     ReservedCFE: UNITY_POST_PROCESSING_STACK_V2'
+    - line: '|     Standalone: UNITY_POST_PROCESSING_STACK_V2'
+    - line: '|     VisionOS: UNITY_POST_PROCESSING_STACK_V2'
+    - line: '|     WebGL: UNITY_POST_PROCESSING_STACK_V2'
+    - line: '|     XboxOne: UNITY_POST_PROCESSING_STACK_V2'
+    - line: '|     tvOS: UNITY_POST_PROCESSING_STACK_V2'
     - line: '|   additionalCompilerArguments: {}'
     - line: '|   platformArchitecture: {}'
     - line: '|   scriptingBackend:'
     - line: '|     Android: 1'
+    - line: '|     Standalone: 0'
     - line: '|   il2cppCompilerConfiguration: {}'
     - line: '|   il2cppCodeGeneration: {}'
     - line: '|   il2cppStacktraceInformation: {}'
@@ -967,7 +988,7 @@ MonoBehaviour:
     - line: '|   qnxGraphicConfPath: '
     - line: '|   apiCompatibilityLevel: 6'
     - line: '|   captureStartupLogs: {}'
-    - line: '|   activeInputHandler: 2'
+    - line: '|   activeInputHandler: 1'
     - line: '|   windowsGamepadBackendHint: 0'
     - line: '|   cloudProjectId: '
     - line: '|   framebufferDepthMemorylessMode: 0'
@@ -986,7 +1007,7 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
-    - rid: 869256943525167157
+    - rid: 3292570558036705345
       type: {class: WindowsPlatformSettings, ns: UnityEditor.WindowsStandalone, asm: UnityEditor.WindowsStandalone.Extensions}
       data:
         m_Development: 0

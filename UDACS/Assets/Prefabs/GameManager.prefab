@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 8565811455192857164}
   - component: {fileID: 8001015927418414207}
   - component: {fileID: 8268925822178162124}
-  - component: {fileID: 1925881897264116433}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -120,15 +119,3 @@ MonoBehaviour:
   droneObject: {fileID: 0}
   loadingSystem: {fileID: 0}
   grenadeUI: {fileID: 0}
---- !u!114 &1925881897264116433
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 28405690123613456}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd044cf79f6529d4d8b8abd0d3230cf8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
